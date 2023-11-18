@@ -6,6 +6,28 @@ body {
     justify-content: space-around;
     margin: 0;
     padding-top: 30px;
+    background-color:rgb(26, 26, 26);
+    color: white !important; 
+   /* background-image: url('');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; */
+  }
+
+  #totales p{
+    border: 1px solid white;
+    padding: 15px;
+    border-radius:15px;
+    margin-bottom:10px;
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2), 0 3px 10px rgba(248, 248, 248, 0.1);
+    background-color: #000000cc;
+
+  }
+
+  #totales p:hover{
+    color: black;
+    background-color:WHITE;
+    cursor:pointer;
   }
   
   .container-button{
@@ -30,18 +52,19 @@ body {
   .container-customer{
     padding: 30px;
     border-radius: 30px;
-    box-shadow: 0 4px 12px rgba(19, 20, 20, 0.2), 0 6px 20px rgba(12, 19, 22, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.308), 0 6px 20px rgba(248, 248, 248, 0.199);
     margin-bottom:25px;
+    background-color: rgb(255, 255, 255);
   }
   
   input {
     margin: 5px;
     margin-bottom: 10px;
     padding: 8px;
-    border: none;  /* Eliminar bordes por defecto */
-    outline: none; /* Eliminar el contorno de enfoque */
+    border: none;  
+    outline: none; 
     border-radius: 5px;
-    box-shadow: 0 4px 12px rgba(19, 20, 20, 0.2), 0 6px 20px rgba(14, 15, 15, 0.3);
+    box-shadow: 0 2px 6px rgba(19, 20, 20, 0.1), 0 4px 12px rgba(14, 15, 15, 0.2);
   }
   
   input.customer {

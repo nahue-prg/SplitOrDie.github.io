@@ -82,3 +82,4 @@ const validatePrice = (input) => {
   
     return payments;
   };
+
