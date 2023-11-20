@@ -1,19 +1,32 @@
-<!doctype html>
-<html lang="es"> 
- <head> 
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Gastos</title> 
-  <link rel="stylesheet" type="text/css" href="./style.css">
- </head> 
- <body> 
-    <div class="container-button"> 
-      <button class="button addPart" onclick="addTemplate()">Agregar participante</button> 
-      <button class="button blue" onclick="calculate()">Calcular</button> 
-     <div id="totales"></div> 
-    </div> 
-    <div id="container" class="template-container"> 
-    </div> 
- </body>
- <script src="app.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gastos</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet"> -->
+  </head>
+  <body>
+   <div class="container-button">
+      <input id="code" placeholder="Codigo compartido..">
+      <button class="button addPart" onclick="cargarCodigo()">
+         Cargar codigo
+       </button>
+      <button class="button addPart" onclick="addTemplate()">
+        Agregar participante
+      </button>
+      <button class="button blue calcular" onclick="cargarParticipantesYCalcular()">
+        Calcular
+      </button>
+      <div id="totales"></div>
+    </div>
+    <div id="container" class="template-container"></div>
+    <!--Liberia para comprimir objetos-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
+    <script src="./scripts/models/Participante.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>

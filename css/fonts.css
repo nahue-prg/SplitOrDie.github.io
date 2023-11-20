@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'neue';
+    src: url('../assets/fonts/neue/BebasNeue-Regular.ttf') format('truetype');
+    /* Otras propiedades si es necesario */
+  }
+  
+@font-face {
+    font-family: 'roboto';
+    src: url('../assets/fonts/robotoMono/RobotoMono-Light.ttf') format('truetype');
+    font-weight: 300;
+  }
+
+  @font-face {
+    font-family: 'roboto';
+    src: url('../assets/fonts/robotoMono/RobotoMono-Regular.ttf') format('truetype');
+    font-weight: 500;
+  }
+
+  @font-face {
+    font-family: 'roboto';
+    src: url('../assets/fonts/robotoMono/RobotoMonoBold.ttf') format('truetype');
+    font-weight: 700;
+  }
+
+
+    
