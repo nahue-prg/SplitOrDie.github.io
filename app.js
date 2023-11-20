@@ -168,34 +168,32 @@ const codificarDatos = () => {
   // Convertir los datos a una cadena JSON
   var datosJSON = JSON.stringify(participantesCargados);
 
-  // Comprimir los datos con pako
-  // var datosComprimidos = pako.deflate(datosJSON, { to: 'string' });
-
   // Codificar los datos comprimidos en base64
   var datosCodificados = btoa(datosJSON);
 
-  console.log("Datos codificados");
-  // Log para verificar los datos codificados
-  console.log(datosCodificados);
+  datosCodificados = encodeURIComponent(datosCodificados)
 
-  console.log(datosCodificados.length);
+  console.log("Datos codificados");
+  console.log(datosCodificados);
 
   return datosCodificados;
 };
 
 const decodificarDatos = (datosCodificados) => {
-  // Descomprimir los datos con pako
-  // var datosDescomprimidos = pako.inflate(datosCodificados, { to: 'string' });
+// Decodificas la cadena para obtener el JSON original
+ datosCodificados = decodeURIComponent(datosCodificados);
+
   // Decodificar los datos en base64
-  var datosDecodificados = atob(datosCodificados);
+  datosCodificados = atob(datosCodificados);
 
   // Convertir los datos a un objeto JSON
-  var datosObjeto = JSON.parse(datosDecodificados);
+  let datosJSON = JSON.parse(datosCodificados);
 
   // Puedes utilizar el objeto de datos según tus necesidades
-  console.log(datosObjeto);
+  console.log("Datos decodificados");
+  console.log(datosJSON);
 
-  return datosObjeto;
+  return datosJSON;
 };
 
 const compartirPorWhatsApp = (datosCodificados) => {

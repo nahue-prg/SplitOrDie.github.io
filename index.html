@@ -10,20 +10,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet"> -->
   </head>
   <body>
-   <div class="container-button">
+    <div class="container-button">
       <input id="code" placeholder="Codigo compartido..">
-      <button class="button addPart" onclick="cargarCodigo()">
+      <button class="button addPart button-main" onclick="cargarCodigo()">
          Cargar codigo
        </button>
-      <button class="button addPart" onclick="addTemplate()">
+      <button class="button addPart button-main" onclick="addTemplate()">
         Agregar participante
       </button>
       <button class="button blue calcular" onclick="cargarParticipantesYCalcular()">
         Calcular
       </button>
-      <div id="totales"></div>
     </div>
-    <div id="container" class="template-container"></div>
+    <div id="totales"></div>
+    <div id="container" class="template-container">
+
+    </div>
     <!--Liberia para comprimir objetos-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
     <script src="./scripts/models/Participante.js"></script>
