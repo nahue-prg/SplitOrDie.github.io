@@ -196,16 +196,6 @@ const decodificarDatos = (datosCodificados) => {
   return datosJSON;
 };
 
-const compartirPorWhatsApp = (datosCodificados) => {
-  // Construir el enlace de WhatsApp con el mensaje prellenado
-  const enlaceWhatsApp = `https://wa.me/?text=Ingresa a ${paginaWeb} y pega el siguiente codigó: ${encodeURIComponent(
-    datosCodificados
-  )}`;
-
-  // Abrir la aplicación de WhatsApp
-  window.location.href = enlaceWhatsApp;
-};
-
 const cargarCodigo = () => {
   const code = document.querySelector("#code").value;
   if (code.length > 0) {
@@ -251,3 +241,38 @@ const generarHTMLdesdeArray = () => {
     container.appendChild(newTemplate);
   });
 };
+
+const compartirPorWhatsapp = () => {
+  cargarParticipantesDesdeHTML();
+  let datosDecodificados = codificarDatos(participantesCargados);
+  // Construir el enlace de WhatsApp con el mensaje prellenado
+  const enlaceWhatsApp = `https://wa.me/?text=Ingresa a ${paginaWeb + "?data=" + datosDecodificados}`;
+  // Abrir la aplicación de WhatsApp
+  window.location.href = enlaceWhatsApp;
+};
+
+const get = () =>{
+  try{
+  // Obtener la URL completa
+  const urlCompleta = window.location.href;
+
+  // Crear una instancia de la clase URL
+  const url = new URL(urlCompleta);
+
+  // Obtener los parámetros de consulta
+  const queryParams = url.searchParams;
+
+  // Obtener el valor del parámetro "data"
+  const valorData = queryParams.get("data");
+  let json = decodificarDatos(valorData);
+  participantesCargados = json;
+  generarHTMLdesdeArray();
+
+  //console.log("Valor de 'data':", valorData);
+}catch(err){
+  console.log(err);
+}
+}
+
+
+get();
