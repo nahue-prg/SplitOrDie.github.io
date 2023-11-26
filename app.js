@@ -506,6 +506,10 @@ const fechaActual = () =>{
   return new Date().toISOString().split('T')[0];
 }
 
+const MostrarInfo = () => {
+  alertGrande("Soy una alterta","orueba");
+}
+
 
 //Setear fecha actual
 document.getElementById('cuenta-fecha').value = fechaActual();
