@@ -1,0 +1,228 @@
+// Classes set via JS
+$accordionClass: '.collapse-init';
+$panelClass: '.panel-active';
+$contentsClass: 'summary + *';
+
+/*
+  Please wrap your collapsible content in a single element or so help me
+  Must add a transition or it breaks because that's the whole purpose of this
+  Only one transition-duration works (see explanation on line #141 in JS)
+  You can add more to an inner wrapper (.details-styling)
+*/
+//Simplified: .details-wrapper{}
+#{$accordionClass $contentsClass} {
+  transition: all 0.25s ease-in-out;
+  overflow: hidden; // because we're animating height
+}
+
+/*
+  Closed state. Any CSS transitions work here
+  The JS has a height calculation to make sliding opened/closed easier, but it's not necessary
+  Remove the height prop for a simple toggle on/off (after all that work I did for you?)
+*/
+//Simplified: :not(.panel-active) .details-wrapper {}
+#{$accordionClass} :not(#{$panelClass}) #{$contentsClass} {  
+  height: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: bottom center;
+}
+
+// Let's get rid of the default arrows so we can style our own, as we must find whatever little joy we can in this garbage web
+#{$accordionClass} {
+  summary { list-style: none; } // Spec
+  summary::-webkit-details-marker { display: none; } // Chrome
+  summary::before { display: none; } // Polyfill
+    
+  // Should we do this? No idea
+  summary { cursor: pointer; }
+}
+
+/*
+  This element exists so .details-wrapper has no extra margin/padding that can screw with the smooth height collapse
+  You can style .details-wrapper decoratively but avoid anything that modifies the box and add it to .details-styling instead
+  Otherwise, this element is totally optional. Remove if you hate divitis
+*/
+.details-styling {
+  padding: 1em;
+}
+
+//======= Non-essential page styling, ignore
+$hue: 260;
+
+$background: hsl($hue, 90, 98);
+$text: hsl($hue, 20, 25);
+
+$primary: hsl($hue, 85, 50);
+$link: hsl($hue, 75, 65);
+$border: hsl($hue, 20, 85);
+
+::selection {
+  $rot: 140;
+  
+  background: hsl($hue + $rot, 95, 70);
+  color: adjust-hue($text, $rot);
+}
+
+html {
+  background: $background;
+  color: $text;
+}
+
+body {
+  font: 1em/1.4 'Quicksand', sans-serif;
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 5vw;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 1em;
+  text-align: center;
+  
+  + p {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50ch;
+  }
+  
+  ~ p {
+    font-size: 1.2em;
+    text-align: center;
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  
+  &:last-child { margin-bottom: 0; }
+}
+
+code {
+  $rot: 90;
+  
+  background: hsla($hue + $rot, 70, 70, 0.1);
+  color: hsl($hue + $rot - 5, 75, 65);
+}
+
+a {
+  color: $link;
+  box-shadow: inset 0 -3px lighten($link, 20);
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s;
+  
+  &:hover,
+  &:focus {
+    box-shadow: inset 0 -1.2em $link;
+    color: $background;
+  }
+}
+
+abbr {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  font-size: 1.2em;
+}
+
+[type=checkbox] {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  
+  + label {
+    background: lighten($primary, 45);
+    border-left: 4px solid $primary;
+    cursor: pointer;
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+    transition: 0.1s;
+    padding: 0.75em 1em;
+    
+    &::before {
+      border: 2px solid;
+      border-radius: 2px;
+      color: $primary;
+      content: '';
+      display: inline-block;
+      margin-right: 0.75ch;
+      transition: 0.1s;
+      width: 1ch;
+      height: 1ch;
+      vertical-align: baseline;
+    }
+  }
+  
+  &:focus + label {
+    outline: 2px solid $primary;    
+  }
+  
+  &:checked + label::before {
+    background: currentColor;
+    box-shadow: inset 0 0 0 2px #fff;
+  }
+}
+
+.container {
+  box-shadow: 0.2em 1em 2em -1em $border;
+  margin: 2.4em 0;
+}
+
+//==== Accordion element styling
+details {
+  $b: 6px;
+  
+  background: #fff;
+  border: 1px solid $border;
+  border-bottom: 0;
+  list-style: none;
+  
+  &:first-child {
+    border-radius: $b $b 0 0;
+  }
+  
+  &:last-child {
+    border-bottom: 1px solid $border;
+    border-radius: 0 0 $b $b;
+  }
+}
+
+summary {
+  $arrow-size: 0.5em;
+  
+  display: block;
+  transition: 0.2s;
+  font-weight: 700;
+  padding: 1em;
+    
+  &:focus {
+    outline: 2px solid $primary;
+  }
+  
+  #{$accordionClass} &::after {
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+    content: '';
+    float: right;
+    width: $arrow-size;
+    height: $arrow-size;
+    margin-top: $arrow-size/2;
+    transform: rotate(45deg);
+    transition: inherit;
+  }
+  
+  [open] & {
+    background: $primary;
+    color: $background;
+    
+    &::after { 
+      margin-top: $arrow-size;
+      transform: rotate(225deg);
+    }
+  }
+}

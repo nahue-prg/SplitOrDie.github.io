@@ -18,10 +18,6 @@ class Participante {
             console.error('Se esperaba un objeto del tipo gasto');
         }
     }
-
-    calculartTotal(){
-
-    }
 }
 
 class GastosCompartidos{
