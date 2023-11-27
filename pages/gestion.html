@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gastos</title>
+  <link rel="stylesheet" href="../node_modules/alertifyjs/build/css/alertify.min.css" />
+  <link rel="stylesheet" href="../node_modules/alertifyjs/build/css/themes/default.min.css" />
+  <link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+<body>
+  <header class="main-header">
+    <label for="btn-nav" class="btn-nav"><i class="fas fa-bars"></i></label>
+    <input type="checkbox" id="btn-nav">
+    <nav>
+      <ul class="navigation">
+        <li><a href="../index.html">
+          Inicio
+          <i class="fa-solid fa-house"></i>
+        </a></li>
+        <li><a href="#">
+          Gastos guardados
+          <i class="fa-regular fa-floppy-disk"></i>
+        </a></li>
+        <li>
+          <a onclick="MostrarInfo()" class="clickeable">Info
+          <i class="fa-solid fa-circle-info"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <section id="gestion-cuentas">
+  </section>
+  <script src="../node_modules/alertifyjs/build/alertify.min.js"></script>
+  <script src="../scripts/models/Participante.js"></script>
+  <script src="../scripts/models/GastosCompartidos.js"></script>
+  <script src="../scripts/code/funcionesComunes.js"></script>
+  <script src="../scripts/code/storage.js"></script>
+  <script src="../scripts/code/gestion.js"></script>
+  <script src="https://kit.fontawesome.com/fdea26cb37.js" crossorigin="anonymous"></script>
+  <script src="../app.js"></script>
+</body>
+
+</html>

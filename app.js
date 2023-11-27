@@ -81,11 +81,11 @@ const deleteTemplate = (button) => {
 
 const limpiarTablero = () => {
   cargarParticipantesDesdeHTML();
-  if(participantesCargados.length> 0) alertify.confirm('Limpiar tablero', 'Presiona "ok" para eliminar todos los participantes del tablero.', () => { realizarLimpieza()}, () => {return;});
+  if (participantesCargados.length > 0) alertify.confirm('Limpiar tablero', 'Presiona "ok" para eliminar todos los participantes del tablero.', () => { realizarLimpieza() }, () => { return; });
   else generarAlerta("No hay participantes cargados para limpiar");
 }
 
-const realizarLimpieza = () =>{
+const realizarLimpieza = () => {
   const container = document.getElementById("container");
   container.innerHTML = "";
 }
@@ -126,7 +126,7 @@ const cargarParticipantesYCalcular = () => {
 
 const participantesValidos = () => {
 
-  if (participantesCargados.length <= 0) return false; 
+  if (participantesCargados.length <= 0) return false;
 
   participantesCargados = participantesCargados.filter((element) => {
     return (
@@ -143,7 +143,7 @@ const participantesValidos = () => {
 const calculate = () => {
 
   //Validar que existan participantes para calcular.. 
-  if(!participantesValidos()){
+  if (!participantesValidos()) {
     generarAlerta("Cargue participantes para calcular");
     return;
   }
@@ -155,42 +155,42 @@ const calculate = () => {
   let distribucion = calculatePayments(participantesCargados);
   let acordion = generarDetalle(distribucion);
   let descripciones = generarDescripciones(distribucion);
-  
+
   contenedor.appendChild(descripciones);
-  
+
   //Boton para abrir o cerrar detalle de la cuenta
   const button = document.createElement("button");
   button.classList.add("button");
   button.classList.add("blue");
-  button.textContent= "Desplegar detalle";
+  button.textContent = "Desplegar detalle";
   button.addEventListener("click", () => mostrarDetalle());
   contenedor.appendChild(button);
 
   //acordion con detalle de la cuenta y script para manejo de eventos click
- 
+
   const script = document.createElement("script");
   script.src = "scripts/code/accordion.js"
   acordion.appendChild(script);
   contenedor.appendChild(acordion);
-  alertGrande("Resultado",contenedor);
+  alertGrande("Resultado", contenedor);
   //Establecerlo con desfasaje temporal de 150 milisegundos debido a que el script para el acordion los cierra automaticamente..  
   setTimeout(() => mostrarDetalle(), 150);
 };
 
-const generarDescripciones = (distribucion) =>{
+const generarDescripciones = (distribucion) => {
   /*distibucion = [{customer: x ,amount: 1}]
   Si amount es negativo recibe, si es positivo paga
   */
   let deudores = [];
   let cobradores = [];
-  let descripciones = []; 
+  let descripciones = [];
 
-  distribucion.forEach((participante)=>{
+  distribucion.forEach((participante) => {
     //Si es 0 esta saldado
-    if(participante.amount > 0){
+    if (participante.amount > 0) {
       deudores.push(participante)
     }
-    else if(participante.amount < 0){
+    else if (participante.amount < 0) {
       cobradores.push(participante)
     }
   });
@@ -198,57 +198,57 @@ const generarDescripciones = (distribucion) =>{
   //por cada cobrador
   cobradores.forEach((cobrador) => {
     //por cada cobrador -- mientras sea negativo le deben
-    if(cobrador.amount < 0){
+    if (cobrador.amount < 0) {
       deudores.forEach((deudor) => {
-        
+
         //if(cobrador.amount >= 0)return; 
 
-        if(deudor.amount > 0){
+        if (deudor.amount > 0) {
           //Es mayor o igual el cobro que la deuda
-          if(deudor.amount <= (cobrador.amount * -1)){
-            let valor = Math.round(deudor.amount,2);
-            if(valor > 0){
-            descripciones.push(`  - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
-            cobrador.amount+= deudor.amount;
-            deudor.amount = 0;
+          if (deudor.amount <= (cobrador.amount * -1)) {
+            let valor = Math.round(deudor.amount, 2);
+            if (valor > 0) {
+              descripciones.push(`  - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
+              cobrador.amount += deudor.amount;
+              deudor.amount = 0;
             }
           }
           //Es mayor la deuda que el cobro
-          else{
-            let valor = Math.round(cobrador.amount * -1,2);
-            if(valor > 0){
-            descripciones.push(`  - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
-            deudor.amount-= (cobrador.amount * -1);
-            cobrador.amount = 0;
-           }
+          else {
+            let valor = Math.round(cobrador.amount * -1, 2);
+            if (valor > 0) {
+              descripciones.push(`  - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
+              deudor.amount -= (cobrador.amount * -1);
+              cobrador.amount = 0;
+            }
           }
         }
       });
     }
   });
 
-const contenedor = document.createElement("div");
-contenedor.classList.add("descripciones-container");
+  const contenedor = document.createElement("div");
+  contenedor.classList.add("descripciones-container");
 
-const lista = document.createElement("ul"); // Puedes usar también <ol> para una lista ordenada
-contenedor.appendChild(lista);
-const titulo = document.createElement("li");
-titulo.innerText = "Pasos para saldar deuda.";
-lista.appendChild(titulo);
+  const lista = document.createElement("ul"); // Puedes usar también <ol> para una lista ordenada
+  contenedor.appendChild(lista);
+  const titulo = document.createElement("li");
+  titulo.innerText = "Pasos para saldar deuda.";
+  lista.appendChild(titulo);
 
-descripciones.forEach((descripcion) => {
-  const elementoLista = document.createElement("li");
-  const parrafo = document.createElement("p");
-  parrafo.textContent = descripcion;
+  descripciones.forEach((descripcion) => {
+    const elementoLista = document.createElement("li");
+    const parrafo = document.createElement("p");
+    parrafo.textContent = descripcion;
 
-  elementoLista.appendChild(parrafo);
-  lista.appendChild(elementoLista);
-});
+    elementoLista.appendChild(parrafo);
+    lista.appendChild(elementoLista);
+  });
 
-return contenedor;
+  return contenedor;
 }
 
-const generarDetalle = (distribucion) =>{
+const generarDetalle = (distribucion) => {
   const acordion = document.createElement("div");
   acordion.classList.add("container");
   acordion.classList.add("collapse");
@@ -258,15 +258,15 @@ const generarDetalle = (distribucion) =>{
     let tot = result.amount < 0 ? result.amount * -1 : result.amount;
     let detalle = document.createElement("details");
     detalle.innerHTML =
-    `
+      `
     <summary>${result.customer} - ${(result.amount < 0 ? "Recibe " : "Paga ")} $${tot}</summary>
     <div class="details-wrapper">
       <div class="details-styling">        
-        ${participante.gas.length > 0 ?  participante.gas.map((gasto) => `<p>- ${gasto.id} - $${gasto.precio}</p>`).join('') : "<p>Sin gastos.</p>"}
+        ${participante.gas.length > 0 ? participante.gas.map((gasto) => `<p>- ${gasto.id} - $${gasto.precio}</p>`).join('') : "<p>Sin gastos.</p>"}
       </div>
     </div>
   `;
-  acordion.appendChild(detalle);
+    acordion.appendChild(detalle);
   });
 
   return acordion;
@@ -274,25 +274,25 @@ const generarDetalle = (distribucion) =>{
 
 const mostrarDetalle = () => {
   try {
-      const detalles = document.querySelectorAll("details");
+    const detalles = document.querySelectorAll("details");
 
-      // Obtener el último detalle
-      const ultimoDetalle = detalles[detalles.length - 1];
+    // Obtener el último detalle
+    const ultimoDetalle = detalles[detalles.length - 1];
 
-      // Verificar si el último detalle tiene el atributo 'open'
-      const ultimoTieneOpen = ultimoDetalle && ultimoDetalle.hasAttribute("open");
+    // Verificar si el último detalle tiene el atributo 'open'
+    const ultimoTieneOpen = ultimoDetalle && ultimoDetalle.hasAttribute("open");
 
-      detalles.forEach((detalle) => {
-          if (ultimoTieneOpen) {
-              // Si el último detalle tiene 'open', eliminamos el atributo en todos
-              detalle.removeAttribute("open");
-          } else {
-              // Si el último detalle no tiene 'open', agregamos el atributo en todos
-              detalle.setAttribute("open", "");
-          }
-      });
+    detalles.forEach((detalle) => {
+      if (ultimoTieneOpen) {
+        // Si el último detalle tiene 'open', eliminamos el atributo en todos
+        detalle.removeAttribute("open");
+      } else {
+        // Si el último detalle no tiene 'open', agregamos el atributo en todos
+        detalle.setAttribute("open", "");
+      }
+    });
   } catch (err) {
-      console.log("Ocurrió un error al mostrar detalle: " + err);
+    console.log("Ocurrió un error al mostrar detalle: " + err);
   }
 };
 
@@ -323,45 +323,17 @@ const calculatePayments = (participantsArray) => {
   return payments;
 };
 
-const codificarDatos = () => {
-  // Convertir los datos a una cadena JSON
-  let datosJSON = JSON.stringify(participantesCargados);
-
-  // Codificar los datos comprimidos en base64
-  let datosCodificados = btoa(datosJSON);
-
-  datosCodificados = encodeURIComponent(datosCodificados)
-
-  console.log("Datos codificados");
-  console.log(datosCodificados);
-
-  return datosCodificados;
-};
-
-const decodificarDatos = (datosCodificados) => {
-  // Decodificas la cadena para obtener el JSON original
-  datosCodificados = decodeURIComponent(datosCodificados);
-
-  // Decodificar los datos en base64
-  datosCodificados = atob(datosCodificados);
-
-  // Convertir los datos a un objeto JSON
-  let datosJSON = JSON.parse(datosCodificados);
-
-  // Puedes utilizar el objeto de datos según tus necesidades
-  console.log("Datos decodificados");
-  console.log(datosJSON);
-
-  return datosJSON;
-};
-
 const cargarCodigo = (code) => {
   if (code.length > 0) {
 
     try {
       let decode = decodificarDatos(code);
       participantesCargados = [];
-      participantesCargados = decode;
+      participantesCargados = decode.participantes;
+      const nombre = document.querySelector("#cuenta-nombre");
+      const fecha = document.querySelector("#cuenta-fecha");
+      nombre.value = decode.name;
+      fecha.value = decode.date;
       generarHTMLdesdeArray();
       calculate();
       cartelExito("Informacion generada con exitó.");
@@ -406,12 +378,11 @@ const generarHTMLdesdeArray = () => {
 
 const compartirPorWhatsapp = () => {
   cargarParticipantesDesdeHTML();
-  if(participantesCargados.length> 0){
-  alertaEst("Comparti la información de tu tablero!", "<button onclick='enviarWP()' class='button'>Via Whatsapp <i class='fa-brands fa-whatsapp' style='width:25px'></i></button> o <button onclick='copiarCodigo()' class='button blue'>Copiar codigo <i class='fa-solid fa-code'></i></button>");
-  // Construir el enlace de WhatsApp con el mensaje prellenado
-  // Abrir la aplicación de WhatsApp
+  if (participantesCargados.length > 0) {
+    alertaEst("Comparti la información de tu tablero!", "<button onclick='enviarWP()' class='button'>Via Whatsapp <i class='fa-brands fa-whatsapp' style='width:25px'></i></button>");
+    // alertaEst("Comparti la información de tu tablero!", "<button onclick='enviarWP()' class='button'>Via Whatsapp <i class='fa-brands fa-whatsapp' style='width:25px'></i></button> o <button onclick='copiarCodigo()' class='button blue'>Copiar codigo <i class='fa-solid fa-code'></i></button>");
   }
-  else{
+  else {
     generarAlerta("Cargue participantes para continuar.");
   }
 
@@ -430,9 +401,23 @@ const copiarCodigo = async () => {
   }
 };
 
-const enviarWP = () =>{
-  let datosDecodificados = codificarDatos(participantesCargados);
-  const enlaceWhatsApp = `https://wa.me/?text=Ingresa al sitio ${paginaWeb + "?data=" + datosDecodificados}`;
+const enviarWP = () => {
+  let nombre = document.querySelector("#cuenta-nombre").value;
+  let fecha = document.querySelector("#cuenta-fecha").value;
+
+  if (nombre === null || nombre == "") {
+    generarAlerta("Ingrese un nombre para continuar..");
+    return;
+  }
+
+  if (fecha === null || fecha == "") {
+    generarAlerta("Ingrese una fecha para continuar");
+    return;
+  }
+
+  let gastosCompartidos = new GastosCompartidos(nombre, fecha, participantesCargados);
+  let datosDecodificados = codificarDatos(gastosCompartidos);
+  const enlaceWhatsApp = `https://wa.me/?text=Ingresa al sitio ${window.location.origin + "/?data=" + datosDecodificados}`;
   window.location.href = enlaceWhatsApp;
 }
 
@@ -450,7 +435,11 @@ const get = () => {
     // Obtener el valor del parámetro "data"
     const valorData = queryParams.get("data");
     let json = decodificarDatos(valorData);
-    participantesCargados = json;
+    participantesCargados = json.participantes;
+    const nombre = document.querySelector("#cuenta-nombre");
+    const fecha = document.querySelector("#cuenta-fecha");
+    nombre.value = json.name;
+    fecha.value = json.date;
     generarHTMLdesdeArray();
   } catch (err) {
     console.log(err);
@@ -479,37 +468,59 @@ const ingresarCodigoGenerador = () => {
 
 }
 
-const alertGrande = (titulo, contenido) => {
-  alertify.alert().set({ 'startMaximized': true, 'message': contenido, 'title': titulo }).show();
-}
-
-const alertaEst = (titulo, mensaje) => {
-  /*
-   * @title {String or DOMElement} The dialog title.
-   * @message {String or DOMElement} The dialog contents.
-   *
-   * alertify.alert(title, message);
-   *
-   */
-  alertify.alert().set({ 'startMaximized': false, 'message': mensaje, 'title': titulo }).show();
-}
-
-const generarAlerta = (alerta) => {
-  alertify.error(alerta);
-}
-
-const cartelExito = (mensaje) => {
-  alertify.success(mensaje);
-}
-
-const fechaActual = () =>{
+const fechaActual = () => {
   return new Date().toISOString().split('T')[0];
 }
 
 const MostrarInfo = () => {
-  alertGrande("Soy una alterta","orueba");
+  alertGrande("Informacion del proyecto", "Aca se deberian mostrar los integrantes..");
+}
+
+const guardarCalculo = () => {
+  try {
+    cargarParticipantesDesdeHTML();
+    if (!participantesValidos()) generarAlerta("No hay participantes cargados para guardar..");
+
+    let nombre = document.querySelector("#cuenta-nombre").value;
+    let fecha = document.querySelector("#cuenta-fecha").value;
+
+    if (nombre === null || nombre == "") {
+      generarAlerta("Ingrese un nombre para continuar..");
+      return;
+    }
+
+    if (fecha === null || fecha == "") {
+      generarAlerta("Ingrese una fecha para continuar");
+      return;
+    }
+
+    let calculo = new GastosCompartidos(nombre, fecha, participantesCargados);
+
+    if (Storage_cuentaExiste(calculo.name, calculo.date)) {
+      alertify.confirm('Modificar cuenta', 'Ya existe una cuenta guardada con el mismo nombre y fecha, presione "ok" para modificarla.', () => { modificarCuenta(calculo) }, () => { return; });
+    }
+    else{
+      Storage_agregarElemento(calculo);
+      cartelExito("Cuenta guardada con exitó");
+    }
+  }
+  catch (err) {
+    console.log(err);
+    generarAlerta("Ocurrio un error al guardar la cuenta");
+  }
+}
+
+const modificarCuenta = (cuentas) => {
+  try {
+    Storage_eliminarCuentaPorID(cuentas.name, cuentas.date);
+    Storage_agregarElemento(cuentas);
+    cartelExito("Cuenta guardada con exitó");
+  }
+  catch (err) {
+    console.log(err);
+    generarAlerta("Ocurrio un error al guardar la cuenta");
+  }
 }
 
 
-//Setear fecha actual
-document.getElementById('cuenta-fecha').value = fechaActual();
+try { document.getElementById('cuenta-fecha').value = fechaActual(); } catch (err) { }

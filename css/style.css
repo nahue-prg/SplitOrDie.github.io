@@ -133,6 +133,51 @@ body  {
     /* margin:0; */
     margin-right: 0;
   }
+  
+  #gestion-cuentas{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+
+  #gestion-cuentas ul li{
+    padding: 15px;
+    border: 1px dashed rgba(230, 229, 229, 0.363);
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: max-content;
+    max-width: 900px;
+    margin-bottom: 20px;
+  }
+
+  #gestion-cuentas ul li p{
+    display: flex;
+    margin-right: 1rem;
+    margin-bottom: 0;
+    font-size: larger;
+    font-weight: 700;
+  }
+
+  .m-5{
+    width: 4rem !important;
+  }
+
+  .m-5:first-of-type{
+    margin-right: 1rem !important;
+  }
+
+  #gestion-cuentas ul li button:first-child{
+    margin-right: 1rem;
+  }
+
+  #gestion-cuentas ul li:hover{
+    background-color: white;
+    color:black;
+    cursor: pointer;
+  }
 
   .price-container{
     display: flex;

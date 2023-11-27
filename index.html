@@ -14,11 +14,11 @@
     <input type="checkbox" id="btn-nav">
     <nav>
       <ul class="navigation">
-        <li><a href="./index.html">
+        <li><a href="#">
           Inicio
           <i class="fa-solid fa-house"></i>
         </a></li>
-        <li><a href="./gestion.html">
+        <li><a href="./pages/gestion.html">
           Gastos guardados
           <i class="fa-regular fa-floppy-disk"></i>
         </a></li>
@@ -35,9 +35,13 @@
       Agregar participante
       <i class="fa-solid fa-user"></i>
     </button>
-    <button class="button blue  button-main " onclick="ingresarCodigoGenerador()">
+    <!-- <button class="button blue  button-main " onclick="ingresarCodigoGenerador()">
       Codigo generador 
       <i class="fa-solid fa-code"></i>
+    </button> -->
+    <button class="button blue  button-main " onclick="guardarCalculo()">
+      Guardar calculo 
+      <i class="fa-regular fa-floppy-disk"></i>
     </button>
     <div class="container-actions">
       <button class="button button-main red" onclick="limpiarTablero()">
@@ -50,13 +54,12 @@
       </button>
     </div>
   </div>
-  <div class="info-cuenta">
+  <section class="info-cuenta">
     <input type="text" id="cuenta-nombre" placeholder="Nombre de cuenta..">
     <input type="date" id="cuenta-fecha" >
-  </div>
-  <div id="totales"></div>
-  <div id="container" class="template-container">
-  </div>
+  </section>
+  <section id="container" class="template-container">
+  </section>
   <div class="float-button-container ">
     <button class="button-wsp shadow" onclick="compartirPorWhatsapp()">
       Enviar
@@ -65,7 +68,10 @@
   </div>
   <script src="./node_modules/alertifyjs/build/alertify.min.js"></script>
   <script src="./scripts/models/Participante.js"></script>
+  <script src="./scripts/models/GastosCompartidos.js"></script>
   <script src="https://kit.fontawesome.com/fdea26cb37.js" crossorigin="anonymous"></script>
+  <script src="./scripts/code/funcionesComunes.js"></script>
+  <script src="./scripts/code/storage.js"></script>
   <script src="app.js"></script>
 </body>
 
