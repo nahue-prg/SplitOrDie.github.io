@@ -270,7 +270,7 @@ const enviarWP = () => {
   let fecha = document.querySelector("#cuenta-fecha").value;
   let gastosCompartidos = new GastosCompartidos(nombre, fecha, participantesCargados);
   let datosDecodificados = codificarDatos(gastosCompartidos);
-  const enlaceWhatsApp = `https://wa.me/?text=Haz%20click%20en%20el%20enlace:%20${encodeURIComponent(window.location.origin + "/?data=" + datosDecodificados)}`;
+  const enlaceWhatsApp = `https://wa.me/?text=Haz%20click%20en%20el%20enlace:%20${encodeURIComponent("https://nahue-prg.github.io/SplitOrDie" + "/?data=" + datosDecodificados)}`;
   window.location.href = enlaceWhatsApp;
 }
 

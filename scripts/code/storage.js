@@ -75,6 +75,6 @@ const Storage_modificarCuenta = (nombre, fecha) => {
         return
     };
     let cuentaCodificada = codificarDatos(cuenta);
-    const enlace = `${window.location.origin + "/?data=" + cuentaCodificada}`;
+    const enlace = `${"https://nahue-prg.github.io/SplitOrDie" + "/?data=" + cuentaCodificada}`;
     window.location.href = enlace;
 }
