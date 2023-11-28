@@ -1,35 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gastos</title>
-  <link rel="stylesheet" href="./node_modules/alertifyjs/build/css/alertify.min.css" />
-  <link rel="stylesheet" href="./node_modules/alertifyjs/build/css/themes/default.min.css" />
+  <title>Dividir gastos</title>
+  <link rel="stylesheet" href="./css/alertify/alertify.min.css" />
+  <link rel="stylesheet" href="./css/alertify/themes/default.min.css" />
   <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
+
 <body>
   <header class="main-header">
     <label for="btn-nav" class="btn-nav"><i class="fas fa-bars"></i></label>
     <input type="checkbox" id="btn-nav">
+    <div id="logo">
+      <i class="fa-solid fa-sack-dollar"></i>
+      <label>Split Or Die</label>
+    </div>
     <nav>
       <ul class="navigation">
         <li><a href="#">
-          Inicio
-          <i class="fa-solid fa-house"></i>
-        </a></li>
+            Inicio
+            <i class="fa-solid fa-house"></i>
+          </a></li>
         <li><a href="./pages/gestion.html">
-          Gastos guardados
-          <i class="fa-regular fa-floppy-disk"></i>
-        </a></li>
+            Gastos guardados
+            <i class="fa-regular fa-floppy-disk"></i>
+          </a></li>
         <li>
           <a onclick="MostrarInfo()" class="clickeable">Info
-          <i class="fa-solid fa-circle-info"></i>
+            <i class="fa-solid fa-circle-info"></i>
           </a>
         </li>
       </ul>
     </nav>
   </header>
+  <section style="display:none;">
+    <h1>Dividir gastos</h1>
+  </section>
+  <section class="info-cuenta">
+    <h2>Información de cuenta</h2>
+    <div>
+      <label>Nombre: </label><input maxlength="25" type="text" title="Ingrese un nombre para la division de gastos." id="cuenta-nombre"placeholder="Nombre de cuenta..">
+    </div>
+    <div>
+      <label>Fecha: </label><input type="date" title="Ingrese una fecha de referencia." id="cuenta-fecha">
+    </div>
+  </section>
   <div class="container-button">
     <button class="button blue button-main " onclick="addTemplate()">
       Agregar participante
@@ -40,7 +58,7 @@
       <i class="fa-solid fa-code"></i>
     </button> -->
     <button class="button blue  button-main " onclick="guardarCalculo()">
-      Guardar calculo 
+      Guardar calculo
       <i class="fa-regular fa-floppy-disk"></i>
     </button>
     <div class="container-actions">
@@ -54,19 +72,14 @@
       </button>
     </div>
   </div>
-  <section class="info-cuenta">
-    <input type="text" id="cuenta-nombre" placeholder="Nombre de cuenta..">
-    <input type="date" id="cuenta-fecha" >
-  </section>
   <section id="container" class="template-container">
   </section>
   <div class="float-button-container ">
     <button class="button-wsp shadow" onclick="compartirPorWhatsapp()">
-      Enviar
       <i class="fa-brands fa-whatsapp " style="width:25px"></i>
     </button>
   </div>
-  <script src="./node_modules/alertifyjs/build/alertify.min.js"></script>
+  <script src="./scripts/code/alertifyjs/alertify.min.js"></script>
   <script src="./scripts/models/Participante.js"></script>
   <script src="./scripts/models/GastosCompartidos.js"></script>
   <script src="https://kit.fontawesome.com/fdea26cb37.js" crossorigin="anonymous"></script>

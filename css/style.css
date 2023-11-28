@@ -1,482 +1,653 @@
 @import url("fonts.css");
 
-:root{
-  --main-color:#fff;
+:root {
+  --main-color: #fff;
 }
 
-body *{
+body * {
   font-family: 'roboto', monospace;
   font-weight: 300;
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-body  {
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0;
+  padding-top: 0px;
+  background-color: rgba(0, 0, 0, 0.889);
+  color: white !important;
+  /* overflow:hidden; */
+}
+
+#logo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.5rem;
+  /* Ancho del logo */
+  position: absolute;
+  top: 0.8rem;
+  right: 20px;
+  font-family: 'neue', monospace;
+}
+
+#logo i{
+  margin-bottom: 2px;
+}
+
+
+#logo label {
+  font-family: 'neue', monospace;
+  font-size: 2rem;
+  margin-left:0.5rem;
+}
+
+#logo :hover {
+  cursor: pointer;
+}
+
+/*MENU*/
+.main-header {
+  background: #7841e6;
+  width: 100%;
+  height: 60px;
+}
+
+nav {
+  position: absolute;
+  left: 0;
+  width: 250px;
+  top: 60px;
+  height: calc(100vh - 50px);
+  background: #8f63e9;
+  transform: translateX(-100%);
+  transition: .4s ease;
+  z-index: 1;
+  /*Mostrar el nav adelante de todo*/
+}
+
+.navigation li {
+  list-style: none;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+}
+
+.navigation a {
+  color: var(--main-color);
+  display: block;
+  line-height: 3.5;
+  padding: 0 10px;
+  text-decoration: none;
+  transition: .4s ease;
+  box-shadow: none;
+}
+
+ul {
+  list-style-type: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation a:hover {
+  transform: translateX(10%);
+  box-shadow: none;
+}
+
+#btn-nav {
+  display: none;
+}
+
+#btn-nav:checked~nav {
+  transform: translateX(0);
+}
+
+.btn-nav {
+  color: var(--main-color);
+  font-size: 30px;
+  position: absolute;
+  left: 0;
+  top: 4px;
+  cursor: pointer;
+  padding: 6.5px 15px;
+  transition: .2s ease;
+}
+
+.btn-nav:hover {
+  background: rgba(0, 0, 0, .3);
+}
+
+/*FIN MENU*/
+
+#totales p {
+  width: max-content;
+  font-family: 'roboto', monospace;
+  font-weight: 500;
+  border: 1px solid white;
+  padding: 15px;
+  border-radius: 15px;
+  margin: 10px;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2), 0 3px 10px rgba(248, 248, 248, 0.1);
+  background-color: #000000cc;
+
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.product {
+  width: 100px;
+}
+
+.price {
+  width: 75px;
+  margin-left: 0;
+}
+
+.simbolo {
+  width: 10px;
+  box-shadow: none;
+  /* margin:0; */
+  margin-right: 0;
+}
+
+#cuenta-nombre,
+#cuenta-fecha {
+  height: 1.6rem;
+  padding: 3px;
+  width:200px;
+  /* animation: titilar 2s infinite; */
+  box-shadow: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.811);
+}
+
+@keyframes titilar {
+  0% {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.811);
+  }
+  50% {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+#gestion-cuentas ul li:hover {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+}
+
+.price-container {
+  display: flex;
+  justify-content: center;
+}
+
+#totales {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#totales p b {
+  font-family: 'roboto', monospace;
+  font-weight: 700;
+}
+
+#totales p:hover {
+  color: black;
+  background-color: WHITE;
+  cursor: pointer;
+}
+
+.descripciones-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.descripciones-container ul li:first-child {
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  font-size: larger;
+  margin-bottom: 0.5rem !important;
+  ;
+  font-weight: 700;
+  height: 2rem;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.372);
+}
+
+.clickeable:hover {
+  cursor: pointer;
+}
+
+.descripciones-container p {
+  font-weight: 700;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 0px !important;
+  ;
+}
+
+.red {
+  background-color: rgba(253, 16, 16)!important;
+}
+
+.container-button {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  padding: 20px;
+  /* border: 2px solid rgb(255, 255, 255); */
+  background-color: rgba(26, 26, 26, 0.596);
+  border-radius: 20px;
+  /* box-shadow: 0 2px 6px rgba(255, 255, 255, 0.308), 0 2px 6px rgba(255, 255, 255, 0.199); */
+  position: fixed;
+  top: 70px;
+  /* Para que quede pegado en la parte superior */
+}
+
+.container-actions .button-main {
+  margin-bottom: 0;
+}
+
+.template-container {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 1300px;
+  display: flex;
+  flex-wrap: wrap;
+  /* Permite que los elementos se envuelvan en una nueva línea si no hay suficiente espacio */
+  justify-content: space-evenly;
+  flex-direction: row;
+  /* Establece la dirección inicial como fila */
+}
+
+.template {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  width: max-content;
+}
+
+
+.container-customer {
+  padding: 30px;
+  height: max-content;
+  border-radius: 30px;
+  /* box-shadow: 0 4px 12px rgba(255, 255, 255, 0.308), 0 6px 20px rgba(248, 248, 248, 0.199); */
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.308), 0 2px 3px rgba(248, 248, 248, 0.199);
+  margin-bottom: 25px;
+  background-color: rgb(255, 255, 255);
+}
+
+.shadow {
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.308), 0 2px 6px rgba(248, 248, 248, 0.199);
+}
+
+input {
+  font-family: 'roboto', monospace;
+  font-weight: 700;
+  margin: 5px;
+  margin-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid transparent;
+  /* Línea inferior transparente */
+  outline: none;
+  border-radius: 0;
+  /* Sin bordes redondeados */
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.342);
+  /* Sombra sutil en la línea inferior */
+}
+
+.info-cuenta {
+  margin: auto;
+  margin-top: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: start;
+  border: 1px solid white;
+  padding:15px;
+  border-radius: 15px;
+  /* box-shadow: 0 1px 0 rgba(255, 255, 255, 0.746); */
+  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.308), 0 2px 3px rgba(248, 248, 248, 0.199);
+}
+
+.info-cuenta h2{
+  margin-bottom:1rem;
+  align-self: center;
+  font-size: 1.3rem;
+} 
+
+.info-cuenta input {
+  background-color: transparent;
+  color: white;
+  font-size: large;
+  font-weight: 300;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.746);
+  /* Sombra sutil en la línea inferior */
+  margin-bottom: 15px;
+}
+
+.info-cuenta input:hover {
+  cursor: pointer;
+}
+
+
+/* Cambia el color del icono del input de fecha a blanco */
+.info-cuenta input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 15px;
+  width: max-content;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.button:hover {
+  background-color: #64b468;
+}
+
+.button-main {
+  margin-bottom: 20px;
+  width: 255px;
+}
+
+.add {
+  padding: 13px 13px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.delete {
+  background-color: red;
+  padding: 10px 13px;
+
+}
+
+.calcular {
+  margin-bottom: 20px;
+}
+
+.delete:hover {
+  background-color: #aa3333;
+}
+
+.blue {
+  background-color: #22a2fe;
+
+  font-weight: 500;
+}
+
+.blue:hover {
+  background-color: #208ad5;
+}
+
+.ajs-ok:hover {
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.ajs-cancel:hover {
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.ajs-content input {
+  height: 2rem !important;
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover {
+  background-color: #33aaff;
+  color: white !important;
+}
+
+.alertify .ajs-body .ajs-content p {
+  margin: 3px;
+}
+
+.container-actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.container-actions button:first-child {
+  margin-right: 5px;
+}
+
+.container-actions button {
+  padding: 15px 12px;
+  width: max-content;
+}
+
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel:hover {
+  background-color: black;
+  color: white;
+}
+
+.float-button-container {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+}
+
+
+.button-wsp {
+  background-color: #1e964a;
+  color: #fff;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.button-wsp i {
+  font-size: 2rem;
+}
+
+
+.container-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+#gestion-cuentas {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+#gestion-cuentas ul li {
+  padding: 15px;
+  border: 1px dashed rgba(230, 229, 229, 0.363);
+  border-radius: 15px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  max-width: 320px;
+  overflow-x: hidden;
+  margin-bottom: 20px;
+}
+
+#gestion-cuentas ul li div label {
+  font-weight: 700;
+}
+
+#gestion-cuentas ul li p {
+  display: flex;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  max-width: 315px;
+  overflow: hidden;
+  white-space: nowrap;
+  align-items:center;
+  text-overflow: ellipsis;
+  padding: 5px;
+}
+
+#gestion-cuentas ul li p:last-of-type {
+  margin-bottom: 0.5rem;
+}
+
+.gestion-cuentas-actions {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 7.5rem;
+}
+
+
+.gestion-cuentas-actions button {
+  width: 3.2rem;
+}
+
+#gestion-cuentas ul li:last-child {
+  /* Estilos para el último li dentro del ul con id gestion-cuentas */
+  /* Por ejemplo, cambiar el color de fondo */
+  border:0;
+}
+
+#gestion-cuentas ul li:last-child:hover {
+  /* Estilos para el último li dentro del ul con id gestion-cuentas */
+  /* Por ejemplo, cambiar el color de fondo */
+  border:0;
+  background-color: transparent;
+}
+
+.container-counts{
+  margin: 15px;
+  padding: 25px;
+  border-radius: 25px;
+  border: 1px solid black;
+}
+
+/*Responsive*/
+
+@media screen and (min-width: 950px) {
+  .container-button {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 830px;
+    flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+    padding: 15px 13px;
+  }
+
+  .template-container {
+    margin-top: 40px;
+  }
+
+  .button-main {
     margin: 0;
-    padding-top: 0px;
-    background-color:rgb(26, 26, 26);
-    color: white !important; 
-    /* overflow:hidden; */
   }
 
-  /*MENU*/
-  .main-header{
-    background: #7841e6;
-    width: 100%;
-    height:60px;
-  }
-  
-  nav{
-    position: absolute;
-    left:0;
-    width: 250px;
-    top:60px;
-    height:calc(100vh - 50px);
-    background:#8f63e9;
-    transform:translateX(-100%);
-    transition:.4s ease;
-    z-index: 1; /*Mostrar el nav adelante de todo*/
-  }
-  
-  .navigation li{
-    list-style:none;
-    width: 100%;
-    border-bottom: 1px solid rgba(255,255,255,.5);
-  }
-  
-  .navigation a{
-    color:var(--main-color);
-    display: block;
-    line-height:3.5;
-    padding: 0 10px;
-    text-decoration:none;
-    transition:.4s ease;
-    box-shadow: none;
+  .info-cuenta {
+    margin-top: 140px;
+    padding:30px;
+    /* margin: auto;
+   
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center; */
   }
 
-  ul {
-    list-style-type: none; /* Elimina el tipo de marcador de lista */
-    list-style: none; /* Elimina los marcadores de lista */
-    padding: 0; /* Elimina el relleno predeterminado */
-    margin: 0; /* Elimina el margen predeterminado */
+  .info-cuenta h2{
+    font-size:1.5rem;
   }
-  
-  .navigation a:hover{
-    transform:translateX(10%);
-    box-shadow: none;
-  }
-  
-  #btn-nav{
-    display: none;
-  }
-  
-  #btn-nav:checked ~ nav{
-    transform:translateX(0);
-  }
-  
-  .btn-nav{
-    color:var(--main-color);
-    font-size:30px;
-    position: absolute;
-    left:0;
-    top:4px;
-    cursor:pointer;
-    padding:6.5px 15px;
-    transition:.2s ease;
-  }
-  
-  .btn-nav:hover{
-    background:rgba(0,0,0,.3);
-  }
+}
 
-  /*FIN MENU*/
-
-  #totales p{
-    width: max-content;
-    font-family: 'roboto', monospace;
-    font-weight: 500;
-    border: 1px solid white;
-    padding: 15px;
-    border-radius:15px;
-    margin:10px;
-    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2), 0 3px 10px rgba(248, 248, 248, 0.1);
-    background-color: #000000cc;
-
-  }
-
-  .product-container{
-    display:flex;
-    justify-content: space-evenly;
-    width: 100%;
-  }
-
-  .product{
-    width: 100px;
-  }
-
-  .price{
-    width: 75px;
-    margin-left:0;
-  }
-
-  .simbolo{
-    width: 10px;
-    box-shadow: none;
-    /* margin:0; */
-    margin-right: 0;
-  }
-  
-  #gestion-cuentas{
+@media screen and (min-width: 600px) {
+  #gestion-cuentas {
     display: flex;
     flex-direction: column;
     align-items: start;
     margin-top: 1.5rem;
   }
 
-  #gestion-cuentas ul li{
+  #gestion-cuentas ul li {
     padding: 15px;
     border: 1px dashed rgba(230, 229, 229, 0.363);
     border-radius: 15px;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: max-content;
-    max-width: 900px;
+    width: 550px;
+    max-width: 550px;
     margin-bottom: 20px;
   }
 
-  #gestion-cuentas ul li p{
+  #gestion-cuentas ul li p {
     display: flex;
     margin-right: 1rem;
     margin-bottom: 0;
-    font-size: larger;
-    font-weight: 700;
-  }
-
-  .m-5{
-    width: 4rem !important;
-  }
-
-  .m-5:first-of-type{
-    margin-right: 1rem !important;
-  }
-
-  #gestion-cuentas ul li button:first-child{
-    margin-right: 1rem;
-  }
-
-  #gestion-cuentas ul li:hover{
-    background-color: white;
-    color:black;
-    cursor: pointer;
-  }
-
-  .price-container{
-    display: flex;
-    justify-content: center;
-  }
-
-  #totales{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #totales p b{
-    font-family: 'roboto', monospace;
-    font-weight: 700;
-  }
-
-  #totales p:hover{
-    color: black;
-    background-color:WHITE;
-    cursor:pointer;
-  }
-
-  .descripciones-container{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .descripciones-container ul li:first-child {
-    display: flex;
-    align-items: end;
-    justify-content: start;
-    font-size: larger;
-    margin-bottom: 0px !important;;
-    font-weight: 700;
-    height: 2rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.372);
-  }
-
-  .clickeable:hover{
-    cursor: pointer;
-  }
-
-  .descripciones-container p{
-    font-weight: 700;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    margin-bottom: 0px !important;;
-  }
-
-  .red{
-    background-color: rgba(255, 0, 0, 0.83) !important;
-  }
-  
-  .container-button{
-    width: max-content;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items: center;
-    font-weight: 500;
-    padding: 20px;
-    /* border: 2px solid rgb(255, 255, 255); */
-    background-color:rgba(26, 26, 26, 0.596);
-    border-radius: 20px;
-    /* box-shadow: 0 2px 6px rgba(255, 255, 255, 0.308), 0 2px 6px rgba(255, 255, 255, 0.199); */
-    position: fixed;
-    top: 60px; /* Para que quede pegado en la parte superior */
-  }
-    
-  .container-actions .button-main{
-    margin-bottom: 0;
-  }
-  
-  .template-container{
-    margin-top: 30px;
-    width: 100%;
-    max-width: 1300px;
-    display: flex;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en una nueva línea si no hay suficiente espacio */
-    justify-content: space-evenly;
-    flex-direction: row; /* Establece la dirección inicial como fila */
-  }
-  
-  .template {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin:10px;
-    width: max-content;
-  }
-
-  
-  .container-customer{
-    padding: 30px;
-    height: max-content;
-    border-radius: 30px;
-    /* box-shadow: 0 4px 12px rgba(255, 255, 255, 0.308), 0 6px 20px rgba(248, 248, 248, 0.199); */
-    box-shadow: 0 2px 3px rgba(255, 255, 255, 0.308), 0 2px 3px rgba(248, 248, 248, 0.199);
-    margin-bottom:25px;
-    background-color: rgb(255, 255, 255);
-  }
-  
-  .shadow{
-    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.308), 0 2px 6px rgba(248, 248, 248, 0.199);
-  }
-
-  input {
-    font-family: 'roboto', monospace;
-    font-weight: 700;
-    margin: 5px;
-    margin-bottom: 10px;
-    border: none;
-    border-bottom: 1px solid transparent; /* Línea inferior transparente */
-    outline: none;
-    border-radius: 0; /* Sin bordes redondeados */
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.342); /* Sombra sutil en la línea inferior */
-  }
-
-  .info-cuenta input{
-    background-color: transparent;
-    color: white;
-    font-size: large;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.746); /* Sombra sutil en la línea inferior */
-    margin-bottom: 15px;
-  }
-
-  .info-cuenta input:hover{
-    cursor: pointer;
-  }
-
-  /* Cambia el color del icono del input de fecha a blanco */
-  .info-cuenta input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-  }
-  
-  .button {
-    background-color: #4CAF50; 
-    border: none;
-    color: white;
-    padding: 15px 15px;
-    width: max-content;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px; 
-    transition: background-color 0.3s ease; 
     font-weight: 500;
   }
-  
-  .button:hover {
-    background-color: #64b468; 
+
+  .info-cuenta {
+    padding:30px;
+    /* margin: auto;
+   
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center; */
   }
 
-   .button-main{
-    margin-bottom:20px;
-    width: 255px;
-  }
-  
-  .add{
-    padding: 13px 13px;
-    margin-bottom:10px;
-    margin-top:15px;
-  }
-  
-  .delete{
-    background-color:red;
-    padding: 10px 13px;
-    
+  .info-cuenta h2{
+    font-size:1.5rem;
   }
 
-  .calcular{
-    margin-bottom: 20px;
-  }
-  
-  .delete:hover {
-    background-color: #aa3333; 
-  }
-  
-  .blue{
-    background-color:#22a2fe;
- 
-    font-weight: 500;
-  }
-  
-  .blue:hover {
-    background-color:#208ad5;
-  }
-
-  .ajs-ok:hover{
-    cursor: pointer;
-    border-radius: 10px;
-  }
-  .ajs-cancel:hover{
-    cursor: pointer;
-    border-radius: 10px;
-  }
-
-  .ajs-content p{
-    /* margin-bottom:10px !important; */
-  }
-
-  .ajs-content input{
-    height:2rem !important;
-  }
-
-  .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover {
-    background-color: #33aaff;
-    color:white !important;
 }
 
-.container-actions{
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.container-actions button:first-child{
-margin-right: 5px;
-}
-
-.container-actions button{
-  padding: 15px 12px;
-  width: max-content;
-  }
-
-
-.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-cancel:hover {
-  background-color: black;
-  color:white ;
-}
-
-.float-button-container {
-  position: fixed;
-  bottom: 20px; /* Ajusta según tu preferencia */
-  right: 10px; /* Ajusta según tu preferencia */
-}
-
-.button-wsp {
-  background-color: #1e964a; /* Color de fondo de WhatsApp */
-  color: #fff; /* Color del texto */
-  padding: 15px 10px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
- font-weight: 500;
-}
-
-.container-detail{
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-}
-
-.info-cuenta{
-  margin: auto;
-  margin-top:270px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-@media screen and (min-width: 950px) {
-   .container-button{
-      display:flex;
-      width: 830px;
-      flex-direction:row;
-      justify-content:space-around;
-      align-items: center;
-      margin-top:30px;
-      padding:15px 13px;
-    } 
-    .template-container{
-      margin-top: 50px;
-    }
-    .button-main{
-      margin:0;
-    }
-
-    .info-cuenta{
-      margin: auto;
-      margin-top:140px;
-      width: 600px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-    }
-}
+/*Fin responsive*/
 
 /*ACORDION SECTION*
 /*
@@ -485,7 +656,7 @@ margin-right: 5px;
   Only one transition-duration works (see explanation on line #141 in JS)
   You can add more to an inner wrapper (.details-styling)
 */
-.collapse-init summary + * {
+.collapse-init summary+* {
   transition: all 0.25s ease-in-out;
   overflow: hidden;
 }
@@ -495,24 +666,27 @@ margin-right: 5px;
   The JS has a height calculation to make sliding opened/closed easier, but it's not necessary
   Remove the height prop for a simple toggle on/off (after all that work I did for you?)
 */
-.collapse-init :not(.panel-active) summary + * {
+.collapse-init :not(.panel-active) summary+* {
   height: 0;
   opacity: 0;
   -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  transform: scale(0.9);
   -webkit-transform-origin: bottom center;
-          transform-origin: bottom center;
+  transform-origin: bottom center;
 }
 
 .collapse-init summary {
   list-style: none;
 }
+
 .collapse-init summary::-webkit-details-marker {
   display: none;
 }
+
 .collapse-init summary::before {
   display: none;
 }
+
 .collapse-init summary {
   cursor: pointer;
 }
@@ -523,10 +697,19 @@ margin-right: 5px;
   Otherwise, this element is totally optional. Remove if you hate divitis
 */
 .details-styling {
-  padding: 1em;
-  border-left: 1px dashed #00000034;
-  border-right: 1px dashed #0000003e;
+  /* padding: 1em; */
+  /* border-left: 1px dashed #00000034;
+  border-right: 1px dashed #0000003e; */
   /*margin-left:10px;*/
+}
+
+.details-styling p{
+  border-bottom: 1px dashed black;
+  padding:5px;
+}
+
+.details-styling p:last-child{
+  border-bottom: none;
 }
 
 ::-moz-selection {
@@ -545,12 +728,14 @@ h1 {
   margin-bottom: 1em;
   text-align: center;
 }
-h1 + p {
+
+h1+p {
   margin-left: auto;
   margin-right: auto;
   max-width: 50ch;
 }
-h1 ~ p {
+
+h1~p {
   font-size: 1.2em;
   text-align: center;
 }
@@ -559,6 +744,7 @@ p {
   margin-top: 0;
   margin-bottom: 1em;
 }
+
 p:last-child {
   margin-bottom: 0;
 }
@@ -575,7 +761,9 @@ a {
   text-decoration: none;
   transition: 0.2s;
 }
-a:hover, a:focus {
+
+a:hover,
+a:focus {
   box-shadow: inset 0 -1.2em #8f63e9;
   color: #f8f5fe;
 }
@@ -592,7 +780,8 @@ abbr {
   width: 0;
   height: 0;
 }
-[type=checkbox] + label {
+
+[type=checkbox]+label {
   background: #efe7fd;
   border-left: 4px solid #5b13ec;
   cursor: pointer;
@@ -603,7 +792,8 @@ abbr {
   transition: 0.1s;
   padding: 0.75em 1em;
 }
-[type=checkbox] + label::before {
+
+[type=checkbox]+label::before {
   border: 2px solid;
   border-radius: 2px;
   color: #5b13ec;
@@ -615,10 +805,12 @@ abbr {
   height: 1ch;
   vertical-align: baseline;
 }
-[type=checkbox]:focus + label {
+
+[type=checkbox]:focus+label {
   outline: 2px solid #5b13ec;
 }
-[type=checkbox]:checked + label::before {
+
+[type=checkbox]:checked+label::before {
   background: currentColor;
   box-shadow: inset 0 0 0 2px #fff;
 }
@@ -631,27 +823,42 @@ abbr {
 
 details {
   background: #fff;
-  border: 1px dashed #00000080;
+  border-top: 1px dashed #00000080;
+  border-left: 1px dashed #00000080;
+  border-right: 1px dashed #00000080;
   /* border-bottom: 0; */
   list-style: none;
 }
+
+details:last-of-type {
+  background: #fff;
+  border-bottom: 1px dashed #00000080;
+  /* border-bottom: 0; */
+  list-style: none;
+}
+
 details:first-child {
   border-radius: 6px 6px 0 0;
 }
+
 details:last-child {
   border-bottom: 1px solid #d6d1e0;
   border-radius: 0 0 6px 6px;
 }
 
 summary {
+  background: #5b13ec;
+  color: white;
   display: block;
   transition: 0.2s;
   font-weight: 700;
   padding: 1em;
 }
+
 summary:focus {
   outline: 2px solid #5b13ec;
 }
+
 .collapse-init summary::after {
   border-right: 2px solid;
   border-bottom: 2px solid;
@@ -661,15 +868,18 @@ summary:focus {
   height: 0.5em;
   margin-top: 0.25em;
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
   transition: inherit;
 }
+
 [open] summary {
   background: #5b13ec;
   color: #f8f5fe;
 }
+
 [open] summary::after {
   margin-top: 0.5em;
   -webkit-transform: rotate(225deg);
-          transform: rotate(225deg);
+  transform: rotate(225deg);
 }
+/*Fin acordion section*/

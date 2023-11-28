@@ -1,6 +1,7 @@
 /*
 VARIABLES GLOBALES
 */
+//Templates para participantes
 const priceContent = `
 <input readonly value="$" class="simbolo">
 <input class="price" type="text" placeholder="100.." onchange="validatePrice(this)" oninput="validatePrice(this)">
@@ -8,16 +9,15 @@ const priceContent = `
 
 const productContainer = `
 <div class="product-container">
-        <input class="product" type="text" placeholder="Producto.." >
-        <div class="price-container">
-          ${priceContent}
-        </div>
-      </div>
+  <input class="product" type="text" placeholder="Producto.." >
+  <div class="price-container">
+    ${priceContent}
+  </div>
+</div>
 `;
 
+//info de participantes cargados en la cuenta
 let participantesCargados = [];
-
-const paginaWeb = "https://nahue-prg.github.io/GastosCompartidos/";
 
 /*
 FUNCIONES
@@ -121,7 +121,7 @@ const cargarParticipantesDesdeHTML = () => {
 
 const cargarParticipantesYCalcular = () => {
   cargarParticipantesDesdeHTML();
-  calculate();
+  calculate(participantesCargados);
 };
 
 const participantesValidos = () => {
@@ -140,7 +140,7 @@ const participantesValidos = () => {
 }
 
 //Realizar calculo con total y mostrarlo en un modal.. 
-const calculate = () => {
+const calculate = (participantes) => {
 
   //Validar que existan participantes para calcular.. 
   if (!participantesValidos()) {
@@ -152,8 +152,8 @@ const calculate = () => {
   contenedor.classList.add("container-detail");
 
   //Calcular total por participante y monto a pagar o recibir por cada uno
-  let distribucion = calculatePayments(participantesCargados);
-  let acordion = generarDetalle(distribucion);
+  let distribucion = calculatePayments(participantes);
+  let acordion = generarDetalle(distribucion, participantesCargados);
   let descripciones = generarDescripciones(distribucion);
 
   contenedor.appendChild(descripciones);
@@ -166,161 +166,13 @@ const calculate = () => {
   button.addEventListener("click", () => mostrarDetalle());
   contenedor.appendChild(button);
 
-  //acordion con detalle de la cuenta y script para manejo de eventos click
-
   const script = document.createElement("script");
   script.src = "scripts/code/accordion.js"
   acordion.appendChild(script);
   contenedor.appendChild(acordion);
   alertGrande("Resultado", contenedor);
-  //Establecerlo con desfasaje temporal de 150 milisegundos debido a que el script para el acordion los cierra automaticamente..  
-  setTimeout(() => mostrarDetalle(), 150);
-};
-
-const generarDescripciones = (distribucion) => {
-  /*distibucion = [{customer: x ,amount: 1}]
-  Si amount es negativo recibe, si es positivo paga
-  */
-  let deudores = [];
-  let cobradores = [];
-  let descripciones = [];
-
-  distribucion.forEach((participante) => {
-    //Si es 0 esta saldado
-    if (participante.amount > 0) {
-      deudores.push(participante)
-    }
-    else if (participante.amount < 0) {
-      cobradores.push(participante)
-    }
-  });
-
-  //por cada cobrador
-  cobradores.forEach((cobrador) => {
-    //por cada cobrador -- mientras sea negativo le deben
-    if (cobrador.amount < 0) {
-      deudores.forEach((deudor) => {
-
-        //if(cobrador.amount >= 0)return; 
-
-        if (deudor.amount > 0) {
-          //Es mayor o igual el cobro que la deuda
-          if (deudor.amount <= (cobrador.amount * -1)) {
-            let valor = Math.round(deudor.amount, 2);
-            if (valor > 0) {
-              descripciones.push(`  - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
-              cobrador.amount += deudor.amount;
-              deudor.amount = 0;
-            }
-          }
-          //Es mayor la deuda que el cobro
-          else {
-            let valor = Math.round(cobrador.amount * -1, 2);
-            if (valor > 0) {
-              descripciones.push(`  - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
-              deudor.amount -= (cobrador.amount * -1);
-              cobrador.amount = 0;
-            }
-          }
-        }
-      });
-    }
-  });
-
-  const contenedor = document.createElement("div");
-  contenedor.classList.add("descripciones-container");
-
-  const lista = document.createElement("ul"); // Puedes usar también <ol> para una lista ordenada
-  contenedor.appendChild(lista);
-  const titulo = document.createElement("li");
-  titulo.innerText = "Pasos para saldar deuda.";
-  lista.appendChild(titulo);
-
-  descripciones.forEach((descripcion) => {
-    const elementoLista = document.createElement("li");
-    const parrafo = document.createElement("p");
-    parrafo.textContent = descripcion;
-
-    elementoLista.appendChild(parrafo);
-    lista.appendChild(elementoLista);
-  });
-
-  return contenedor;
-}
-
-const generarDetalle = (distribucion) => {
-  const acordion = document.createElement("div");
-  acordion.classList.add("container");
-  acordion.classList.add("collapse");
-  distribucion.forEach((result) => {
-    //Encontrar al participante para cargar detalle de gastos
-    let participante = participantesCargados.find(participante => participante.name == result.customer);
-    let tot = result.amount < 0 ? result.amount * -1 : result.amount;
-    let detalle = document.createElement("details");
-    detalle.innerHTML =
-      `
-    <summary>${result.customer} - ${(result.amount < 0 ? "Recibe " : "Paga ")} $${tot}</summary>
-    <div class="details-wrapper">
-      <div class="details-styling">        
-        ${participante.gas.length > 0 ? participante.gas.map((gasto) => `<p>- ${gasto.id} - $${gasto.precio}</p>`).join('') : "<p>Sin gastos.</p>"}
-      </div>
-    </div>
-  `;
-    acordion.appendChild(detalle);
-  });
-
-  return acordion;
-}
-
-const mostrarDetalle = () => {
-  try {
-    const detalles = document.querySelectorAll("details");
-
-    // Obtener el último detalle
-    const ultimoDetalle = detalles[detalles.length - 1];
-
-    // Verificar si el último detalle tiene el atributo 'open'
-    const ultimoTieneOpen = ultimoDetalle && ultimoDetalle.hasAttribute("open");
-
-    detalles.forEach((detalle) => {
-      if (ultimoTieneOpen) {
-        // Si el último detalle tiene 'open', eliminamos el atributo en todos
-        detalle.removeAttribute("open");
-      } else {
-        // Si el último detalle no tiene 'open', agregamos el atributo en todos
-        detalle.setAttribute("open", "");
-      }
-    });
-  } catch (err) {
-    console.log("Ocurrió un error al mostrar detalle: " + err);
-  }
-};
-
-//Calcular por cada participante el monto adeudado o a cobrar
-const calculatePayments = (participantsArray) => {
-  const totalExpenses = participantsArray.reduce((sum, participant) => {
-    // Calcular el total de gastos para cada participante
-    const participantTotal = participant.gas.reduce(
-      (total, expense) => total + expense.precio,
-      0
-    );
-    return sum + participantTotal;
-  }, 0);
-
-  const numberOfParticipants = participantsArray.length;
-  const averageExpense = totalExpenses / numberOfParticipants;
-
-  // Calcular la deuda o el pago para cada participante
-  const payments = participantsArray.map((participant) => {
-    const participantTotal = participant.gas.reduce(
-      (total, expense) => total + expense.precio,
-      0
-    );
-    const debtPayment = averageExpense - participantTotal;
-    return { customer: participant.name, amount: Math.round(debtPayment, 2) };
-  });
-
-  return payments;
+  //Establecerlo con desfasaje temporal de 300 milisegundos debido a que el script para el acordion los cierra automaticamente..  
+  setTimeout(() => mostrarDetalle(), 300);
 };
 
 const cargarCodigo = (code) => {
@@ -335,7 +187,7 @@ const cargarCodigo = (code) => {
       nombre.value = decode.name;
       fecha.value = decode.date;
       generarHTMLdesdeArray();
-      calculate();
+      calculate(participantesCargados);
       cartelExito("Informacion generada con exitó.");
     } catch (err) {
       generarAlerta("Error al cargar el codigo");
@@ -352,17 +204,17 @@ const generarHTMLdesdeArray = () => {
     const newTemplate = document.createElement("div");
     newTemplate.className = "template container-customer";
     newTemplate.innerHTML = `
-      <input class="customer" type="text" placeholder="Nombre participante" value="${participante.name
-      }">
+      <input class="customer" type="text" placeholder="Nombre participante" value="${participante.name}">
       ${participante.gas !== undefined && participante.gas !== null && participante.gas.length > 0 ? participante.gas.map(
-        (gasto) => `<div class='product-container'>
-      <input class="product" type="text" placeholder="Producto.." value="${gasto.id}" >
-      <div class="price-container">
-        <input readonly value="$" class="simbolo">
-        <input class="price" type="text" placeholder="100.." onchange="validatePrice(this)" oninput="validatePrice(this)" value="${gasto.precio}">
-      </div>
-      </div>`
-      ) : productContainer}
+      (gasto) =>
+        `<div class='product-container'>
+          <input class="product" type="text" placeholder="Producto.." value="${gasto.id}" >
+          <div class="price-container">
+            <input readonly value="$" class="simbolo">
+            <input class="price" type="text" placeholder="100.." onchange="validatePrice(this)" oninput="validatePrice(this)" value="${gasto.precio}">
+          </div>
+        </div>`
+    ).join('') : productContainer}
       <button class="button add" onclick="AddInput(this)">
         Agregar gasto
         <i class="fa-solid fa-plus"></i>
@@ -378,9 +230,21 @@ const generarHTMLdesdeArray = () => {
 
 const compartirPorWhatsapp = () => {
   cargarParticipantesDesdeHTML();
+  let nombre = document.querySelector("#cuenta-nombre").value;
+  let fecha = document.querySelector("#cuenta-fecha").value;
+
+  if (nombre === null || nombre == "") {
+    generarAlerta("Ingrese un nombre para continuar..");
+    return;
+  }
+
+  if (fecha === null || fecha == "") {
+    generarAlerta("Ingrese una fecha para continuar");
+    return;
+  }
+
   if (participantesCargados.length > 0) {
-    alertaEst("Comparti la información de tu tablero!", "<button onclick='enviarWP()' class='button'>Via Whatsapp <i class='fa-brands fa-whatsapp' style='width:25px'></i></button>");
-    // alertaEst("Comparti la información de tu tablero!", "<button onclick='enviarWP()' class='button'>Via Whatsapp <i class='fa-brands fa-whatsapp' style='width:25px'></i></button> o <button onclick='copiarCodigo()' class='button blue'>Copiar codigo <i class='fa-solid fa-code'></i></button>");
+    alertaEst("Comparti la información de tu tablero!", "<button onclick='enviarWP()' class='button'>Enviar por Whatsapp <i class='fa-brands fa-whatsapp' style='width:25px'></i></button>");
   }
   else {
     generarAlerta("Cargue participantes para continuar.");
@@ -404,20 +268,9 @@ const copiarCodigo = async () => {
 const enviarWP = () => {
   let nombre = document.querySelector("#cuenta-nombre").value;
   let fecha = document.querySelector("#cuenta-fecha").value;
-
-  if (nombre === null || nombre == "") {
-    generarAlerta("Ingrese un nombre para continuar..");
-    return;
-  }
-
-  if (fecha === null || fecha == "") {
-    generarAlerta("Ingrese una fecha para continuar");
-    return;
-  }
-
   let gastosCompartidos = new GastosCompartidos(nombre, fecha, participantesCargados);
   let datosDecodificados = codificarDatos(gastosCompartidos);
-  const enlaceWhatsApp = `https://wa.me/?text=Ingresa al sitio ${window.location.origin + "/?data=" + datosDecodificados}`;
+  const enlaceWhatsApp = `https://wa.me/?text=Haz%20click%20en%20el%20enlace:%20${encodeURIComponent(window.location.origin + "/?data=" + datosDecodificados)}`;
   window.location.href = enlaceWhatsApp;
 }
 
@@ -441,13 +294,11 @@ const get = () => {
     nombre.value = json.name;
     fecha.value = json.date;
     generarHTMLdesdeArray();
+    calculate(participantesCargados);
   } catch (err) {
-    console.log(err);
+    //console.log(err);
   }
 }
-
-get();
-
 
 const ingresarCodigoGenerador = () => {
   /*
@@ -485,12 +336,12 @@ const guardarCalculo = () => {
     let fecha = document.querySelector("#cuenta-fecha").value;
 
     if (nombre === null || nombre == "") {
-      generarAlerta("Ingrese un nombre para continuar..");
+      generarAlerta("Ingrese un nombre de cuenta para continuar..");
       return;
     }
 
     if (fecha === null || fecha == "") {
-      generarAlerta("Ingrese una fecha para continuar");
+      generarAlerta("Ingrese una fecha para continuar..");
       return;
     }
 
@@ -499,8 +350,9 @@ const guardarCalculo = () => {
     if (Storage_cuentaExiste(calculo.name, calculo.date)) {
       alertify.confirm('Modificar cuenta', 'Ya existe una cuenta guardada con el mismo nombre y fecha, presione "ok" para modificarla.', () => { modificarCuenta(calculo) }, () => { return; });
     }
-    else{
+    else {
       Storage_agregarElemento(calculo);
+      alertaEst("Guardado", "Gasto almacenado con exitó! Podes visualizarla desde el menu en la opcion 'Gastos guardados'");
       cartelExito("Cuenta guardada con exitó");
     }
   }
@@ -522,5 +374,6 @@ const modificarCuenta = (cuentas) => {
   }
 }
 
-
 try { document.getElementById('cuenta-fecha').value = fechaActual(); } catch (err) { }
+
+get();
