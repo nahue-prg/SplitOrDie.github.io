@@ -120,7 +120,14 @@ const cargarParticipantesDesdeHTML = () => {
 };
 
 const cargarParticipantesYCalcular = () => {
+  
   cargarParticipantesDesdeHTML();
+
+  if (!participantesValidos()) {
+    generarAlerta("Cargue participantes para calcular");
+    return;
+  }
+
   calculate(participantesCargados);
 };
 
@@ -139,11 +146,26 @@ const participantesValidos = () => {
   return participantesCargados.length > 0;
 }
 
+const participantesValidosParam = (participantes) => {
+
+  if (participantes.length <= 0) return false;
+
+  participantes = participantes.filter((element) => {
+    return (
+      //que tenga nombre o que tenga algun producto cargado.. 
+      (element.name !== "" && element.name !== null && element.name !== undefined) ||
+      element.gas.some((gasto) => gasto.precio !== null && gasto.precio !== undefined && gasto.precio > 0)
+    );
+  });
+
+  return participantes.length > 0;
+}
+
 //Realizar calculo con total y mostrarlo en un modal.. 
 const calculate = (participantes) => {
 
   //Validar que existan participantes para calcular.. 
-  if (!participantesValidos()) {
+  if (!participantesValidosParam(participantes)) {
     generarAlerta("Cargue participantes para calcular");
     return;
   }
@@ -162,7 +184,7 @@ const calculate = (participantes) => {
   const button = document.createElement("button");
   button.classList.add("button");
   button.classList.add("blue");
-  button.textContent = "Desplegar detalle";
+  button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
   button.addEventListener("click", () => mostrarDetalle());
   contenedor.appendChild(button);
 
@@ -324,7 +346,9 @@ const fechaActual = () => {
 }
 
 const MostrarInfo = () => {
-  alertGrande("Informacion del proyecto", "Aca se deberian mostrar los integrantes..");
+
+
+  alertGrande("Información", "Desarrollado por Nahuel Maquieyra <i class='fa-solid fa-user-ninja'></i> <br/><br/><a href='https://www.linkedin.com/in/nahuel-maquieyra-69b774253/'> Linkedin <i class='fa-brands fa-linkedin'></i></a><br/><br/><a href='https://github.com/nahue-prg'> Github <i class='fa-brands fa-github-alt'></i></a> <br/><br/><i class='fa-solid fa-wand-magic-sparkles'></i> Dividir gastos, guardar gastos, calcular multiples divisiones de gastos.<br/><br/><i class='fa-solid fa-calendar-days'></i>  2023/12");
 }
 
 const guardarCalculo = () => {
@@ -374,6 +398,9 @@ const modificarCuenta = (cuentas) => {
   }
 }
 
-try { document.getElementById('cuenta-fecha').value = fechaActual(); } catch (err) { }
+try { 
+  const calendario = document.getElementById('cuenta-fecha');
+  calendario.value = fechaActual();
+} catch (err) { }
 
 get();

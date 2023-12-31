@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dividir gastos</title>
+  <title>Split Or Die</title>
+  <link rel="icon" href="./assets/dollars.svg" type="image/x-icon">
   <link rel="stylesheet" href="./css/alertify/alertify.min.css" />
   <link rel="stylesheet" href="./css/alertify/themes/default.min.css" />
   <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
-
 <body>
   <header class="main-header">
     <label for="btn-nav" class="btn-nav"><i class="fas fa-bars"></i></label>
@@ -22,7 +21,7 @@
       <ul class="navigation">
         <li><a href="#">
             Inicio
-            <i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-house-chimney"></i>
           </a></li>
         <li><a href="./pages/gestion.html">
             Gastos guardados
@@ -48,10 +47,10 @@
       <label>Fecha: </label><input type="date" title="Ingrese una fecha de referencia." id="cuenta-fecha">
     </div>
   </section>
-  <div class="container-button">
+  <section class="container-button">
     <button class="button blue button-main " onclick="addTemplate()">
       Agregar participante
-      <i class="fa-solid fa-user"></i>
+      <i class="fa-regular fa-user"></i>
     </button>
     <!-- <button class="button blue  button-main " onclick="ingresarCodigoGenerador()">
       Codigo generador 
@@ -64,14 +63,17 @@
     <div class="container-actions">
       <button class="button button-main red" onclick="limpiarTablero()">
         Limpiar
-        <i class="fa-solid fa-trash"></i>
+        <i class="fa-regular fa-trash-can"></i>
       </button>
       <button class="button blue button-main calcular " onclick="cargarParticipantesYCalcular()">
         Calcular
         <i class="fa-solid fa-calculator"></i>
       </button>
     </div>
-  </div>
+  </section>
+  <!-- <section id="no-participantes">
+      <h3>Cargue participantes para continuar <i class='fa-solid fa-box-open'></i></h3>
+  </section> -->
   <section id="container" class="template-container">
   </section>
   <div class="float-button-container ">
@@ -87,5 +89,4 @@
   <script src="./scripts/code/storage.js"></script>
   <script src="app.js"></script>
 </body>
-
 </html>

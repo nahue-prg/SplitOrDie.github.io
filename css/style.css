@@ -22,7 +22,9 @@ body {
   justify-content: space-around;
   margin: 0;
   padding-top: 0px;
-  background-color: rgba(0, 0, 0, 0.889);
+  background-color: #1C1D21;
+  /* --tw-bg-opacity: 1; FONDO GPT DARK
+  background-color: rgba(52,53,65,var(--tw-bg-opacity)); */
   color: white !important;
   /* overflow:hidden; */
 }
@@ -248,7 +250,11 @@ ul {
 }
 
 .red {
-  background-color: rgba(253, 16, 16)!important;
+  background-color: #F93943 !IMPORTANT;
+}
+
+.red:HOVER {
+  background-color: #fc575f !IMPORTANT;
 }
 
 .container-button {
@@ -298,10 +304,17 @@ ul {
   height: max-content;
   border-radius: 30px;
   /* box-shadow: 0 4px 12px rgba(255, 255, 255, 0.308), 0 6px 20px rgba(248, 248, 248, 0.199); */
-  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.308), 0 2px 3px rgba(248, 248, 248, 0.199);
+  box-shadow: 2px 3px 5px rgba(115, 56, 217, 0.705), 2px 3px 5px rgba(115, 56, 217, 0.642);
   margin-bottom: 25px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.902);
 }
+
+.container-customer input {
+  background-color: transparent !important;
+  border-bottom: 1px solid #7841e6 !important;
+  padding:1px;
+}
+
 
 .shadow {
   box-shadow: 0 2px 6px rgba(255, 255, 255, 0.308), 0 2px 6px rgba(248, 248, 248, 0.199);
@@ -329,11 +342,10 @@ input {
   flex-direction: column;
   justify-content: space-around;
   align-items: start;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   padding:15px;
   border-radius: 15px;
-  /* box-shadow: 0 1px 0 rgba(255, 255, 255, 0.746); */
-  box-shadow: 0 2px 3px rgba(255, 255, 255, 0.308), 0 2px 3px rgba(248, 248, 248, 0.199);
+  /* box-shadow: 0 2px 3px rgba(255, 255, 255, 0.308), 0 2px 3px rgba(248, 248, 248, 0.199); */
 }
 
 .info-cuenta h2{
@@ -363,7 +375,7 @@ input {
 }
 
 .button {
-  background-color: #4CAF50;
+  background-color: #55917F;
   border: none;
   color: white;
   padding: 15px 15px;
@@ -380,7 +392,7 @@ input {
 }
 
 .button:hover {
-  background-color: #64b468;
+  background-color: #5e9585;
 }
 
 .button-main {
@@ -392,10 +404,28 @@ input {
   padding: 13px 13px;
   margin-bottom: 10px;
   margin-top: 15px;
+  background-color: transparent;
+  color: #7841e6;
+  font-weight: bolder;
+  border: 2px solid #7841e6;
+}
+
+.add:hover{
+  background-color: #7841e6;
+  color: white;
 }
 
 .delete {
-  background-color: red;
+  background-color: transparent;
+  color:  #F93943;
+  border: 2px solid #F93943;
+  padding: 10px 13px;
+
+}
+
+.delete:hover{
+  color:white;
+  background-color: #F93943;
   padding: 10px 13px;
 
 }
@@ -405,17 +435,17 @@ input {
 }
 
 .delete:hover {
-  background-color: #aa3333;
+  background-color: #fe525a;
 }
 
 .blue {
-  background-color: #22a2fe;
-
+  background-color: #7841e6;
   font-weight: 500;
+  COLOR: white;
 }
 
 .blue:hover {
-  background-color: #208ad5;
+  background-color:#804ee4;
 }
 
 .ajs-ok:hover {
@@ -433,8 +463,14 @@ input {
 }
 
 .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok:hover {
-  background-color: #33aaff;
+  background-color: #7841e6;
   color: white !important;
+}
+
+.alertify .ajs-footer .ajs-buttons .ajs-button.ajs-ok {
+  background-color: #814ceb;
+  color: white !important;
+  border-radius: 8px;
 }
 
 .alertify .ajs-body .ajs-content p {
@@ -573,12 +609,16 @@ input {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 15px;
     padding: 15px 13px;
   }
 
   .template-container {
     margin-top: 40px;
+  }
+
+  .container-customer input {
+    border-bottom: 1px solid #7841e6;
   }
 
   .button-main {

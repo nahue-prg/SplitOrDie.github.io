@@ -60,7 +60,7 @@ const calcularTodo = () => {
   const button = document.createElement("button");
   button.classList.add("button");
   button.classList.add("blue");
-  button.textContent = "Desplegar detalle";
+  button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
   button.addEventListener("click", () => mostrarDetalle());
 
   const contenedorCuentas = document.createElement("div");

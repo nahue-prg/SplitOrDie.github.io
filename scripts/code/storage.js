@@ -1,4 +1,5 @@
 const CUENTAS_NOMBRE = "Cuentas";
+const SUGERENCIAS_NOMBRE = "Sugerencias";
 
 const Storage_agregarElemento = (nuevoElemento) => {
     let array = Storage_obtenerItem(CUENTAS_NOMBRE);
