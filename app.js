@@ -1,6 +1,7 @@
 /*
-VARIABLES GLOBALES
+-----------------------------------------------------  VARIABLES GLOBALES
 */
+
 //Templates para participantes
 const priceContent = `
 <input readonly value="$" class="simbolo">
@@ -16,12 +17,15 @@ const productContainer = `
 </div>
 `;
 
+const URLBASE = "https://nahue-prg.github.io/SplitOrDie/";
+
 //info de participantes cargados en la cuenta
 let participantesCargados = [];
 
 /*
-FUNCIONES
+-----------------------------------------------------  FUNCIONES
 */
+
 //Validar precio ingresado en input de precios
 const validatePrice = (input) => {
   const regex = /^[0-9]+(\.[0-9]{1,2})?$/; // Acepta números enteros o decimales con hasta dos lugares decimales
@@ -79,12 +83,14 @@ const deleteTemplate = (button) => {
   container.removeChild(template);
 };
 
+//mostrar cartel de confirmacion para limpiar tablero
 const limpiarTablero = () => {
   cargarParticipantesDesdeHTML();
   if (participantesCargados.length > 0) alertify.confirm('Limpiar tablero', 'Presiona "ok" para eliminar todos los participantes del tablero.', () => { realizarLimpieza() }, () => { return; });
   else generarAlerta("No hay participantes cargados para limpiar");
 }
 
+//realizar limpieza de todos los participantes del tablero
 const realizarLimpieza = () => {
   const container = document.getElementById("container");
   container.innerHTML = "";
@@ -119,8 +125,8 @@ const cargarParticipantesDesdeHTML = () => {
   });
 };
 
+//cargar participantes ingresados por el usuario con sus gastos y realizar calculo, mostrar pop up con resultado
 const cargarParticipantesYCalcular = () => {
-  
   cargarParticipantesDesdeHTML();
 
   if (!participantesValidos()) {
@@ -131,8 +137,8 @@ const cargarParticipantesYCalcular = () => {
   calculate(participantesCargados);
 };
 
+//filtrar los participantes validos de los que no lo son, asi como tambien los gastos
 const participantesValidos = () => {
-
   if (participantesCargados.length <= 0) return false;
 
   participantesCargados = participantesCargados.filter((element) => {
@@ -146,8 +152,8 @@ const participantesValidos = () => {
   return participantesCargados.length > 0;
 }
 
+//filtrar los participantes validos de los que no lo son, asi como tambien los gastos
 const participantesValidosParam = (participantes) => {
-
   if (participantes.length <= 0) return false;
 
   participantes = participantes.filter((element) => {
@@ -163,10 +169,9 @@ const participantesValidosParam = (participantes) => {
 
 //Realizar calculo con total y mostrarlo en un modal.. 
 const calculate = (participantes) => {
-
   //Validar que existan participantes para calcular.. 
   if (!participantesValidosParam(participantes)) {
-    generarAlerta("Cargue participantes para calcular");
+    generarAlerta("Cargue participantes validos para realizar el calculo.");
     return;
   }
 
@@ -183,7 +188,7 @@ const calculate = (participantes) => {
   //Boton para abrir o cerrar detalle de la cuenta
   const button = document.createElement("button");
   button.classList.add("button");
-  button.classList.add("blue");
+  button.classList.add("blue-2");
   button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
   button.addEventListener("click", () => mostrarDetalle());
   contenedor.appendChild(button);
@@ -192,14 +197,32 @@ const calculate = (participantes) => {
   script.src = "scripts/code/accordion.js"
   acordion.appendChild(script);
   contenedor.appendChild(acordion);
+
+  //se agrega total gastado y monto gastado promedio 2022-12-31
+  let contenedorTotal = document.createElement("ul");
+  let totalGastado = participantes.reduce((totalParticipante, participante) => parseFloat(totalParticipante + participante.gas.reduce((totalGastos, gasto) => parseFloat(totalGastos + gasto.precio),0 )),0);
+  let totalPorParticipante = parseFloat( totalGastado / parseFloat(participantes.length));
+  contenedorTotal.id = "contenedor-totales";
+  contenedorTotal.innerHTML = `
+    <li>
+      <label class="guion descripcion"></label> Total gastado: $${ Math.round(totalGastado,2)}.
+    </li>
+    <li>
+      <label class="guion descripcion"></label> Total por participante: $${Math.round(totalPorParticipante,2)}.
+    </li>
+  `;
+
+  contenedor.appendChild(contenedorTotal);
+  //termina agregado 2022-12-31
+
   alertGrande("Resultado", contenedor);
   //Establecerlo con desfasaje temporal de 300 milisegundos debido a que el script para el acordion los cierra automaticamente..  
-  setTimeout(() => mostrarDetalle(), 300);
+  setTimeout(() => mostrarDetalle(), 600);
 };
 
+//cargar codigo con participantes y gastos (el codigo es un json codificado)
 const cargarCodigo = (code) => {
   if (code.length > 0) {
-
     try {
       let decode = decodificarDatos(code);
       participantesCargados = [];
@@ -219,6 +242,7 @@ const cargarCodigo = (code) => {
   }
 };
 
+//generar estructura html con participantes desde array de participantes con gastos
 const generarHTMLdesdeArray = () => {
   const container = document.getElementById("container");
   container.innerHTML = "";
@@ -250,6 +274,7 @@ const generarHTMLdesdeArray = () => {
   });
 };
 
+//compartir por whatsapp el tablero cargado por el usuario
 const compartirPorWhatsapp = () => {
   cargarParticipantesDesdeHTML();
   let nombre = document.querySelector("#cuenta-nombre").value;
@@ -274,6 +299,7 @@ const compartirPorWhatsapp = () => {
 
 };
 
+//copiarle el codigo al usuario automaticamente 
 const copiarCodigo = async () => {
   // Suponiendo que datosDecodificados es una cadena de texto
   let datosDecodificados = codificarDatos(participantesCargados);
@@ -287,15 +313,17 @@ const copiarCodigo = async () => {
   }
 };
 
+//enviar por Whatsapp 
 const enviarWP = () => {
   let nombre = document.querySelector("#cuenta-nombre").value;
   let fecha = document.querySelector("#cuenta-fecha").value;
   let gastosCompartidos = new GastosCompartidos(nombre, fecha, participantesCargados);
   let datosDecodificados = codificarDatos(gastosCompartidos);
-  const enlaceWhatsApp = `https://wa.me/?text=Haz%20click%20en%20el%20enlace:%20${encodeURIComponent("https://nahue-prg.github.io/SplitOrDie" + "/?data=" + datosDecodificados)}`;
+  const enlaceWhatsApp = `https://wa.me/?text=Haz%20click%20en%20el%20enlace:%20${encodeURIComponent( URLBASE + "?data=" + datosDecodificados)}`;
   window.location.href = enlaceWhatsApp;
 }
 
+//intentar obtener la data como query param de la url 
 const get = () => {
   try {
     // Obtener la URL completa
@@ -322,6 +350,7 @@ const get = () => {
   }
 }
 
+//ingresar codigo generador / no se esta usando
 const ingresarCodigoGenerador = () => {
   /*
    * @title {String or DOMElement} The dialog title.
@@ -341,16 +370,17 @@ const ingresarCodigoGenerador = () => {
 
 }
 
+//obtener fecha actual
 const fechaActual = () => {
   return new Date().toISOString().split('T')[0];
 }
 
+//lanzar pop up con informacion
 const MostrarInfo = () => {
-
-
   alertGrande("Información", "Desarrollado por Nahuel Maquieyra <i class='fa-solid fa-user-ninja'></i> <br/><br/><a href='https://www.linkedin.com/in/nahuel-maquieyra-69b774253/'> Linkedin <i class='fa-brands fa-linkedin'></i></a><br/><br/><a href='https://github.com/nahue-prg'> Github <i class='fa-brands fa-github-alt'></i></a> <br/><br/><i class='fa-solid fa-wand-magic-sparkles'></i> Dividir gastos, guardar gastos, calcular multiples divisiones de gastos.<br/><br/><i class='fa-solid fa-calendar-days'></i>  2023/12");
 }
 
+//guardar calculo en storage 
 const guardarCalculo = () => {
   try {
     cargarParticipantesDesdeHTML();
@@ -386,6 +416,7 @@ const guardarCalculo = () => {
   }
 }
 
+//cargar una cuenta del storage para edicion por el usuario
 const modificarCuenta = (cuentas) => {
   try {
     Storage_eliminarCuentaPorID(cuentas.name, cuentas.date);

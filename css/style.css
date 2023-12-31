@@ -29,6 +29,27 @@ body {
   /* overflow:hidden; */
 }
 
+#contenedor-totales li:first-child{
+  margin-bottom:1rem;
+}
+
+#contenedor-totales *{
+  font-weight: 1000;
+}
+
+.guion{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+
+.descripcion{
+  background-color: #5b13ec;
+}
+
 #logo {
   display: flex;
   justify-content: space-around;
@@ -446,6 +467,16 @@ input {
 
 .blue:hover {
   background-color:#804ee4;
+}
+
+.blue-2 {
+  background-color: #5b13ec;
+  font-weight: 500;
+  COLOR: white;
+}
+
+.blue-2:hover {
+  background-color:#5b13ece2 !important;
 }
 
 .ajs-ok:hover {

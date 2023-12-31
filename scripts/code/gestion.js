@@ -59,7 +59,7 @@ const calcularTodo = () => {
   //Boton para abrir o cerrar detalle de la cuenta
   const button = document.createElement("button");
   button.classList.add("button");
-  button.classList.add("blue");
+  button.classList.add("blue-2");
   button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
   button.addEventListener("click", () => mostrarDetalle());
 
@@ -70,6 +70,7 @@ const calcularTodo = () => {
   cuentas.forEach((cuenta) => {
     //cuenta.participantes  = [ customer: nombreIdentificador, amount: total ]  -- negativo cobra, positivo paga
     const containerCuenta = document.createElement("div");
+    containerCuenta.setAttribute("style","margin-bottom:30px;")
     containerCuenta.innerHTML = `<div><h3 style="font-weight:700;color:#7841e6">Cuenta: ${cuenta.name}</h3><h3 style="font-weight:700;color:#7841e6">Fecha: ${cuenta.date}</h3></div>`
     let distribucion = calculatePayments(cuenta.participantes);
     // Realizar una copia profunda de distribucion
@@ -81,6 +82,22 @@ const calcularTodo = () => {
 
     containerCuenta.appendChild(descripciones);
     containerCuenta.appendChild(acordionDetalle);
+    ///se agrega total gastado y monto gastado promedio 2022-12-31
+    let contenedorTotal = document.createElement("ul");
+    let totalGastado = cuenta.participantes.reduce((totalParticipante, participante) => parseFloat(totalParticipante + participante.gas.reduce((totalGastos, gasto) => parseFloat(totalGastos + gasto.precio),0 )),0);
+    let totalPorParticipante = parseFloat( totalGastado / parseFloat(cuenta.participantes.length));
+    contenedorTotal.id = "contenedor-totales";
+    contenedorTotal.innerHTML = `
+      <li>
+        <label class="guion descripcion"></label> Total gastado: $${ Math.round(totalGastado,2)}.
+      </li>
+      <li>
+        <label class="guion descripcion"></label> Total por participante: $${Math.round(totalPorParticipante,2)}.
+      </li>
+    `;
+    containerCuenta.appendChild(contenedorTotal);
+    ///termina agregado 2022-12-31
+
     contenedorCuentas.appendChild(containerCuenta);
   });
 
@@ -115,7 +132,6 @@ const calcularTodo = () => {
   containerCuenta.appendChild(descripciones);
   containerCuenta.appendChild(button);
   containerCuenta.appendChild(acordionDetalle);
-
   contenedor.appendChild(containerCuenta);
   contenedor.appendChild(contenedorCuentas);
   const script = document.createElement("script");

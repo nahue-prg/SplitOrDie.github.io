@@ -157,7 +157,7 @@ const generarDescripciones = (distribucion) => {
           if (deudor.amount <= (cobrador.amount * -1)) {
             let valor = Math.round(deudor.amount, 2);
             if (valor > 0) {
-              descripciones.push(` - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
+              descripciones.push(`  <label class="guion descripcion"></label> ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
               cobrador.amount += deudor.amount;
               deudor.amount = 0;
             }
@@ -166,7 +166,7 @@ const generarDescripciones = (distribucion) => {
           else {
             let valor = Math.round(cobrador.amount * -1, 2);
             if (valor > 0) {
-              descripciones.push(` - ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
+              descripciones.push(`  <label class="guion descripcion"></label> ${deudor.customer} paga $${valor} a ${cobrador.customer}.`);
               deudor.amount -= (cobrador.amount * -1);
               cobrador.amount = 0;
             }
@@ -188,7 +188,7 @@ const generarDescripciones = (distribucion) => {
   descripciones.forEach((descripcion) => {
     const elementoLista = document.createElement("li");
     const parrafo = document.createElement("p");
-    parrafo.textContent = descripcion;
+    parrafo.innerHTML = descripcion;
 
     elementoLista.appendChild(parrafo);
     lista.appendChild(elementoLista);
