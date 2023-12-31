@@ -429,9 +429,22 @@ const modificarCuenta = (cuentas) => {
   }
 }
 
-try { 
-  const calendario = document.getElementById('cuenta-fecha');
-  calendario.value = fechaActual();
-} catch (err) { }
 
-get();
+//Al iniciar la pagina.. 
+document.addEventListener('DOMContentLoaded', function() {
+  //establecer fecha actual
+  try { 
+    const calendario = document.getElementById('cuenta-fecha');
+    calendario.value = fechaActual();
+  } catch (err) { }
+
+  //obtener query params si existen
+  get();
+});
+
+
+
+
+
+
+
