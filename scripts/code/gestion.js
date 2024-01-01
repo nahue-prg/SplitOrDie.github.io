@@ -1,5 +1,4 @@
 const CUENTAS_HTML = document.querySelector("#gestion-cuentas");
-const URLBASE = "https://splitordie.ar/";
 let bksticks = ``;
 
 const cargarCuentas = () => {
