@@ -1,3 +1,5 @@
+const URLBASE__ = "https://splitordie.ar/";
+
 const codificarDatos = (participantes) => {
     // Convertir los datos a una cadena JSON
     let datosJSON = JSON.stringify(participantes);

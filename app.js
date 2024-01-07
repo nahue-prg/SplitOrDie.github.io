@@ -17,7 +17,7 @@ const productContainer = `
 </div>
 `;
 
-const URLBASE = "https://nahue-prg.github.io/SplitOrDie/";
+const URLBASE = "https://splitordie.ar/";
 
 //info de participantes cargados en la cuenta
 let participantesCargados = [];

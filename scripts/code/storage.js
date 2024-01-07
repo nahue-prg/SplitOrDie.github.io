@@ -1,5 +1,5 @@
 const CUENTAS_NOMBRE = "Cuentas";
-const USUARIOS_NOMBRES = "Sugerencias";
+const SUGERENCIAS_NOMBRE = "Sugerencias";
 const URLBASE_ = "https://splitordie.ar/";
 
 const Storage_agregarElemento = (nuevoElemento) => {
@@ -107,7 +107,7 @@ const Storage_modificarCuenta = (nombre, fecha) => {
         return
     };
     let cuentaCodificada = codificarDatos(cuenta);
-    const enlace = `${"https://nahue-prg.github.io/SplitOrDie" + "/?data=" + cuentaCodificada}`;
+    const enlace = `${URLBASE_ + "?data=" + cuentaCodificada}`;
     window.location.href = enlace;
 }
 //#endregion
