@@ -32,10 +32,11 @@ const codificarDatos = (participantes) => {
 
   
 const alertGrande = (titulo, contenido) => {
+   alertify.alert().destroy();
     alertify.alert().set({ 'startMaximized': true, 'message': contenido, 'title': titulo }).show();
   }
   
-  const alertaEst = (titulo, mensaje) => {
+  const alertaEst = (titulo, mensaje, funcionOk) => {
     /*
      * @title {String or DOMElement} The dialog title.
      * @message {String or DOMElement} The dialog contents.
@@ -43,7 +44,8 @@ const alertGrande = (titulo, contenido) => {
      * alertify.alert(title, message);
      *
      */
-    alertify.alert().set({ 'startMaximized': false, 'message': mensaje, 'title': titulo }).show();
+    alertify.alert().destroy();
+    alertify.alert().set({ 'startMaximized': false, 'message': mensaje, 'title': titulo, 'onok': funcionOk }).show();
   }
   
   const generarAlerta = (alerta) => {
@@ -92,7 +94,7 @@ const generarDetalle = (distribucion,participantes) => {
     let detalle = document.createElement("details");
     detalle.innerHTML =
       `
-    <summary>${result.customer} - ${(result.amount < 0 ? "Recibe " : "Paga ")} $${tot}</summary>
+    <summary>${result.customer} - ${(result.amount < 0 ? "Recibe " : "Paga ")} $${tot} <button class="button white">Editar</button></summary>
     <div class="details-wrapper">
       <div class="details-styling">        
         ${participante.gas.length > 0 ? participante.gas.map((gasto) => `<p> ${gasto.id} - $${gasto.precio}</p>`).join('') : "<p>Sin gastos.</p>"}

@@ -41,23 +41,44 @@ const validatePrice = (input) => {
 
 //Agregar un nuevo participante
 const addTemplate = () => {
-  const container = document.getElementById("container");
-  const newTemplate = document.createElement("div");
-  newTemplate.className = "template container-customer";
-  newTemplate.innerHTML = `
-      <input class="customer" type="text" placeholder="Nombre participante">
+  alertaEst("Ingresar participante", 
+  `<div class="template container-customer" style="margin:auto"> 
+    <div class="user-select">
+      <input class="customer" type="text" placeholder="Elegir participante" onclick="participanteElegir()" readonly><button class="button blue user-add"><i class="fa-solid fa-user-plus"></i></button>
+    </div>
+    <div class="usuarios-select" style="display: none;">
+    </div>
       ${productContainer}
-      <button class="button add" onclick="AddInput(this)">
+    <button class="button add" onclick="AddInput(this)">
       Agregar gasto
-      <i class="fa-solid fa-plus"></i>
+      <i class="fa-solid fa-money-bill-1-wave"></i>
     </button>
-      <button class="button delete" onclick="deleteTemplate(this)">
-        Eliminar
-        <i class="fa-solid fa-trash"></i>
-      </button>
-    `;
-  container.appendChild(newTemplate);
+  </div>`, 
+  () => {console.log("me cerraron")}
+  );
+
+  // const container = document.getElementById("container");
+  // const newTemplate = document.createElement("div");
+  // newTemplate.className = "template container-customer";
+  // newTemplate.innerHTML = `
+  //     <input class="customer" type="text" placeholder="Nombre participante">
+  //     ${productContainer}
+  //     <button class="button add" onclick="AddInput(this)">
+  //     Agregar gasto
+  //     <i class="fa-solid fa-plus"></i>
+  //   </button>
+  //     <button class="button delete" onclick="deleteTemplate(this)">
+  //       Eliminar
+  //       <i class="fa-solid fa-trash"></i>
+  //     </button>
+  //   `;
+  // container.appendChild(newTemplate);
 };
+
+const participanteElegir = () => {
+
+
+}
 
 //Agregar un input exta para ingresar nuevo gasto en un participante
 const AddInput = (but) => {

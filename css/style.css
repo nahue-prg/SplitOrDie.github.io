@@ -165,7 +165,7 @@ ul {
 
 .product-container {
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
   width: 100%;
 }
 
@@ -183,6 +183,7 @@ ul {
   box-shadow: none;
   /* margin:0; */
   margin-right: 0;
+  border-bottom-width: 2px;
 }
 
 #cuenta-nombre,
@@ -314,7 +315,7 @@ ul {
 .template {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   margin: 10px;
   width: max-content;
 }
@@ -325,9 +326,9 @@ ul {
   height: max-content;
   border-radius: 30px;
   /* box-shadow: 0 4px 12px rgba(255, 255, 255, 0.308), 0 6px 20px rgba(248, 248, 248, 0.199); */
-  box-shadow: 2px 3px 5px rgba(115, 56, 217, 0.705), 2px 3px 5px rgba(115, 56, 217, 0.642);
-  margin-bottom: 25px;
-  background-color: rgba(255, 255, 255, 0.902);
+  /* box-shadow: 2px 3px 5px rgba(115, 56, 217, 0.705), 2px 3px 5px rgba(115, 56, 217, 0.642); */
+  /* margin-bottom: 25px; */
+  /* background-color: rgba(255, 255, 255, 0.902); */
 }
 
 .container-customer input {
@@ -352,7 +353,7 @@ input {
   outline: none;
   border-radius: 0;
   /* Sin bordes redondeados */
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.342);
+  /* box-shadow: 0 1px 0 rgba(0, 0, 0, 0.342); */
   /* Sombra sutil en la línea inferior */
 }
 
@@ -423,12 +424,24 @@ input {
 
 .add {
   padding: 13px 13px;
+  /* font-size: larger; */
   margin-bottom: 10px;
   margin-top: 15px;
   background-color: transparent;
   color: #7841e6;
   font-weight: bolder;
   border: 2px solid #7841e6;
+}
+
+.user-select{
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.user-add{
+  padding: 10px 11px !important;
+  border-radius: 100%;
 }
 
 .add:hover{

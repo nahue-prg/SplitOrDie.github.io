@@ -1,5 +1,6 @@
 const CUENTAS_NOMBRE = "Cuentas";
-const SUGERENCIAS_NOMBRE = "Sugerencias";
+const USUARIOS_NOMBRES = "Sugerencias";
+const URLBASE_ = "https://splitordie.ar/";
 
 const Storage_agregarElemento = (nuevoElemento) => {
     let array = Storage_obtenerItem(CUENTAS_NOMBRE);
@@ -23,6 +24,40 @@ const Storage_existe = (nombre) => {
     return localStorage.getItem(nombre) !== null;
 }
 
+//#region Nombres guardados
+const Storage_agregarUsuario = (nombre) => {
+    let usuarios = Storage_obtenerItem(USUARIOS_NOMBRES);
+
+    if (usuarios  === null){
+        usuarios = [];
+        usuarios.push(nombre);
+    }
+    else {
+        let usuario = usuarios.find(item => item === nombre)
+        if(usuario != null && usuario != undefined) return usuarios;
+        
+        usuarios.push(nombre);
+    }
+
+    Storage_guardarItem(USUARIOS_NOMBRES, usuarios);
+    return usuarios;
+}
+
+const Storage_buscarUsuarios = () => {
+  return Storage_obtenerItem(USUARIOS_NOMBRES);
+}
+
+const Storage_eliminarUsuario = (nombre) => {
+    let usuarios = Storage_obtenerItem(USUARIOS_NOMBRES);
+    let usuariosResult = usuarios.find(usuario => usuario != nombre);
+    Storage_guardarItem(USUARIOS_NOMBRES, usuariosResult);
+    return usuariosResult;
+}
+
+//#endregion
+
+//#region CUENTAS
+
 const Storage_cuentaExiste = (nombre, fecha) => {
     let cuentas = Storage_obtenerItem(CUENTAS_NOMBRE);
     if (cuentas  === null) return false;
@@ -35,10 +70,6 @@ const Storage_obtenerCuentas = () => {
     let valor = Storage_obtenerItem(CUENTAS_NOMBRE);
     return valor;
 }
-
-// const Storage_guardarNuevaCuenta = (valor) => {
-//     Storage_agregarElemento(CUENTAS_NOMBRE,valor);
-// }
 
 const Storage_eliminarCuenta = (cuenta) => {
     let cuentas = Storage_obtenerItem(CUENTAS_NOMBRE);
@@ -79,3 +110,4 @@ const Storage_modificarCuenta = (nombre, fecha) => {
     const enlace = `${"https://nahue-prg.github.io/SplitOrDie" + "/?data=" + cuentaCodificada}`;
     window.location.href = enlace;
 }
+//#endregion
