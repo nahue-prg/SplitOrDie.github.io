@@ -29,6 +29,60 @@ body {
   /* overflow:hidden; */
 }
 
+.usuario_selected{
+  background-color: #5b13ec;
+  color: white;
+  font-weight: bolder;
+}
+
+.contenedor-usuarios{
+  min-height: max-content;
+}
+
+.usuario_nombre{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-deleted{
+  padding: 10px !important;
+    font-size: smaller !important;
+    margin: 0 !important;
+}
+
+.gasto_deleted{
+  font-size: smaller !important;
+  padding: 3px 12px !important;
+  margin-left: 10px !important;
+}
+
+.usuario{
+  display: flex;
+  justify-content: space-between;
+  font-weight: bolder;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: 2px dashed #7841e6;
+  margin: 9px;
+  border-radius: 18px;
+}
+
+.usuario:last-child{
+  margin-bottom: 0;
+}
+
+.usuario *{
+  font-weight: bolder;
+}
+
+.usuario:hover{
+  background-color: #7841e6;
+  border-color: white;
+  color: white;
+  cursor: pointer;
+}
+
 #contenedor-totales li:first-child{
   margin-bottom:1rem;
 }
@@ -165,7 +219,8 @@ ul {
 
 .product-container {
   display: flex;
-  /* justify-content: space-evenly; */
+  justify-content: space-evenly !important;
+  align-items: center;
   width: 100%;
 }
 
@@ -322,7 +377,7 @@ ul {
 
 
 .container-customer {
-  padding: 30px;
+  /* padding: 10px; */
   height: max-content;
   border-radius: 30px;
   /* box-shadow: 0 4px 12px rgba(255, 255, 255, 0.308), 0 6px 20px rgba(248, 248, 248, 0.199); */
@@ -333,7 +388,7 @@ ul {
 
 .container-customer input {
   background-color: transparent !important;
-  border-bottom: 1px solid #7841e6 !important;
+  border-bottom: 2px solid #7841e6 !important;
   padding:1px;
 }
 
@@ -422,6 +477,10 @@ input {
   width: 255px;
 }
 
+.w-100{
+ width: 100% !important;
+}
+
 .add {
   padding: 13px 13px;
   /* font-size: larger; */
@@ -433,15 +492,23 @@ input {
   border: 2px solid #7841e6;
 }
 
-.user-select{
-  display:flex;
-  justify-content: space-around;
-  align-items: center;
+.user-select:hover{
+  cursor: pointer;
 }
+
+#participanteElegido:hover{
+  cursor: pointer;
+}
+
+#participanteElegido{
+  margin-right: 0.5rem;
+}
+
 
 .user-add{
   padding: 10px 11px !important;
-  border-radius: 100%;
+  font-size: smaller;
+  /* border-radius: 100%; */
 }
 
 .add:hover{

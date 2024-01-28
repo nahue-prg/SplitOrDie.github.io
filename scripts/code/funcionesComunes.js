@@ -47,7 +47,7 @@ const alertGrande = (titulo, contenido) => {
      *
      */
     alertify.alert().destroy();
-    alertify.alert().set({ 'startMaximized': false, 'message': mensaje, 'title': titulo, 'onok': funcionOk }).show();
+    alertify.alert().set({ 'startMaximized': false, 'message': mensaje, 'title': titulo, 'onok': funcionOk ,'onclose': () => {} }).show();
   }
   
   const generarAlerta = (alerta) => {

@@ -192,12 +192,12 @@
 }
 .alertify.ajs-resizable .ajs-body .ajs-content,
 .alertify.ajs-maximized .ajs-body .ajs-content {
-  position: absolute;
+  /* position: absolute; TODO: MODIFICADO*/  
   top: 50px;
   right: 24px;
   bottom: 50px;
   left: 24px;
-  overflow: auto;
+  /* overflow: auto;  TODO: MODIFICADO */
 }
 .alertify.ajs-resizable .ajs-footer,
 .alertify.ajs-maximized .ajs-footer {

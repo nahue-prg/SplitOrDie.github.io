@@ -1,5 +1,5 @@
 const CUENTAS_NOMBRE = "Cuentas";
-const SUGERENCIAS_NOMBRE = "Sugerencias";
+const USUARIOS_NOMBRES = "Sugerencias";
 const URLBASE_ = "https://splitordie.ar/";
 
 const Storage_agregarElemento = (nuevoElemento) => {
@@ -44,12 +44,14 @@ const Storage_agregarUsuario = (nombre) => {
 }
 
 const Storage_buscarUsuarios = () => {
-  return Storage_obtenerItem(USUARIOS_NOMBRES);
+  let usuarios = Storage_obtenerItem(USUARIOS_NOMBRES);
+  if(usuarios !== null && usuarios !== undefined) return usuarios;
+  else return [];
 }
 
 const Storage_eliminarUsuario = (nombre) => {
     let usuarios = Storage_obtenerItem(USUARIOS_NOMBRES);
-    let usuariosResult = usuarios.find(usuario => usuario != nombre);
+    let usuariosResult = usuarios.filter(usuario => usuario !== nombre);
     Storage_guardarItem(USUARIOS_NOMBRES, usuariosResult);
     return usuariosResult;
 }
