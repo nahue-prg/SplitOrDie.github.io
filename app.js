@@ -55,12 +55,14 @@ const addTemplate = () => {
           generarAlerta("No se selecciono un participante valido.");
       } else {
           cargarParticipanteDeModal();
+          generarHTMLdesdeArray();
           cartelExito("Participante agregado con exitó");
       }
     }
   );
 };
 
+/*Agregar nuevo participantes al array que esta cargado*/
 const agregarParticipante = () => {
   alertify.prompt(
     "Cargar participante",
@@ -76,7 +78,7 @@ const agregarParticipante = () => {
   );
 };
 
-//Cargar participantes y sus gastos
+//Cargar participantes y sus gastos en el array global de participantes
 const cargarParticipanteDeModal = () => {
 
   //divsConParticipantes
@@ -272,7 +274,6 @@ const deleteTemplate = (button) => {
 
 //mostrar cartel de confirmacion para limpiar tablero
 const limpiarTablero = () => {
-  cargarParticipantesDesdeHTML();
   if (participantesCargados.length > 0)
     alertify.confirm(
       "Limpiar tablero",
@@ -289,42 +290,13 @@ const limpiarTablero = () => {
 
 //realizar limpieza de todos los participantes del tablero
 const realizarLimpieza = () => {
-  const container = document.getElementById("container");
+  const container = document.getElementById("container-participantes");
   container.innerHTML = "";
-};
-
-//Cargar participantes y sus gastos
-const cargarParticipantesDesdeHTML = () => {
   participantesCargados = [];
-  //divsConParticipantes
-  const templates = document.querySelectorAll(".template");
-
-  templates.forEach((template) => {
-    const customerName = template.querySelector(".customer").value;
-    const productContainers = template.querySelectorAll(".product-container");
-
-    let participante = new Participante(customerName);
-
-    productContainers.forEach((product) => {
-      // Obtener el contenido del input con la clase "product"
-      const productName = product.querySelector(".product").value;
-      // Obtener el contenido del input con la clase "price"
-      let productPrice = product.querySelector(".price").value;
-
-      if (!isNaN(parseFloat(productPrice))) {
-        productPrice = parseFloat(productPrice);
-        const gasto = new Gasto(productName, productPrice);
-        participante.agregarGasto(gasto);
-      }
-    });
-
-    participantesCargados.push(participante);
-  });
 };
 
 //cargar participantes ingresados por el usuario con sus gastos y realizar calculo, mostrar pop up con resultado
 const cargarParticipantesYCalcular = () => {
-  cargarParticipantesDesdeHTML();
 
   if (!participantesValidos()) {
     generarAlerta("Cargue participantes para calcular");
@@ -399,7 +371,7 @@ const calculate = (participantes) => {
   //Boton para abrir o cerrar detalle de la cuenta
   const button = document.createElement("button");
   button.classList.add("button");
-  button.classList.add("blue-2");
+  button.classList.add("blue");
   button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
   button.addEventListener("click", () => mostrarDetalle());
   contenedor.appendChild(button);
@@ -473,49 +445,98 @@ const cargarCodigo = (code) => {
 
 //generar estructura html con participantes desde array de participantes con gastos
 const generarHTMLdesdeArray = () => {
-  const container = document.getElementById("container");
+  const container = document.getElementById("container-participantes");
   container.innerHTML = "";
-  participantesCargados.forEach((participante) => {
-    const newTemplate = document.createElement("div");
-    newTemplate.className = "template container-customer";
-    newTemplate.innerHTML = `
-      <input class="customer" type="text" placeholder="Nombre participante" value="${
-        participante.name
-      }">
-      ${
-        participante.gas !== undefined &&
-        participante.gas !== null &&
-        participante.gas.length > 0
-          ? participante.gas
-              .map(
-                (gasto) =>
-                  `<div class='product-container'>
-          <input class="product" type="text" placeholder="Producto.." value="${gasto.id}" >
-          <div class="price-container">
-            <input readonly value="$" class="simbolo">
-            <input class="price" type="text" placeholder="100.." onchange="validatePrice(this)" oninput="validatePrice(this)" value="${gasto.precio}">
-          </div>
-        </div>`
-              )
-              .join("")
-          : productContainer
+  if(participantesCargados.length > 0){
+    const listaSeccionAcordion = participantesCargados.map((participante) => {
+      let listaPagos = [];
+      let gasto = 0;
+      if(participante.gas && participante.gas.length > 0){ 
+        //generar lista de pagos con productos
+        listaPagos = participante.gas.map( (gasto) =>  `${gasto.id} - $${gasto.precio}` );
+        //generar el gasto total
+        gasto = participante.gas.reduce((acumulador, gasto) => acumulador + gasto.precio, 0);
       }
-      <button class="button add w-100" onclick="AddInput(this)">
-        Agregar gasto
-        <i class="fa-solid fa-plus"></i>
-      </button>
-      <button class="button delete" onclick="deleteTemplate(this)">
-      Eliminar
-      <i class="fa-solid fa-trash"></i>
-    </button>
-    `;
-    container.appendChild(newTemplate);
-  });
+
+      //generar acordion 
+      let seccionAcordion = new SeccionAcordion(`${participante.name} - $${gasto}`, listaPagos);
+      return seccionAcordion;
+    });
+
+    let acordion = new Acordion(listaSeccionAcordion);
+    let acordionContainer = acordion.generarAcordion();
+
+    const button = document.createElement("button");
+    button.classList.add("button");
+    button.classList.add("desplega-detalle");
+    button.classList.add("blue");
+    button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
+    button.addEventListener("click", () => mostrarDetalle());
+    container.appendChild(button);  
+    container.appendChild(acordionContainer);  
+    setTimeout(() => mostrarDetalle(), 250);
+  }
 };
+
+const eliminarParticipanteCargado = (nombre) =>{
+  alertify.confirm(
+    "Eliminar participante",
+    `Presionar Ok para eliminar a ${nombre}`,
+    () => {
+      participantesCargados = participantesCargados.filter((participante) => participante.name !== nombre)
+      generarHTMLdesdeArray();
+    },
+    () => {
+      return;
+    }
+  );
+}
+
+const editParticipante = (nombre) => {
+  alertaEst(
+    "Ingresar participante",
+    `<div class="template container-customer" style="margin:auto"> 
+    <div class="user-select">
+      <label style="font-weight:bolder">Nombre:</label>
+      <input class="customer" value="${nombre}" id="participanteElegido" type="text" placeholder="Elegir participante" onclick="cargarParticipantes()" readonly><button class="button blue user-add" onclick="cargarParticipantes()"><i class="fa-solid fa-user-plus"></i></button>
+    </div>
+    ${participantesCargados.find((participante) => participante.name == nombre) ? 
+      participantesCargados.find((participante) => participante.name == nombre).gas.length > 0 ?
+      participantesCargados.find((participante) => participante.name == nombre).gas.map( (gasto) => 
+      `
+      <div class="product-container">
+      <label class="guion descripcion"></label>
+                <input class="product" type="text" placeholder="Producto.." value='${gasto.id}' >
+                <div class="price-container">
+                  <input readonly value="$" class="simbolo">
+                  <input class="price" type="text" placeholder="100.." value='${gasto.precio}' onchange="validatePrice(this)" oninput="validatePrice(this)">
+                  <button class="button red gasto_deleted" onclick="eliminarGasto(this)"><i class="fa-solid fa-trash"></i></button>
+                </div>
+      </div>`).join("") 
+   : ""
+   : ""}
+    <button class="button add w-100" onclick="AddGasto(this)">
+      Agregar gasto
+      <i class="fa-solid fa-money-bill-1-wave"></i>
+    </button>
+  </div>`,
+    (evt) => {
+      let texto = evt.button.text;
+      let inputParticipante = document.querySelector("#participanteElegido");
+      let nombre = inputParticipante.value;
+      if (nombre === null || nombre.length < 1) {
+          generarAlerta("No se selecciono un participante valido.");
+      } else {
+          cargarParticipanteDeModal();
+          generarHTMLdesdeArray();
+          cartelExito("Participante agregado con exitó");
+      }
+    }
+  );
+}
 
 //compartir por whatsapp el tablero cargado por el usuario
 const compartirPorWhatsapp = () => {
-  cargarParticipantesDesdeHTML();
   let nombre = document.querySelector("#cuenta-nombre").value;
   let fecha = document.querySelector("#cuenta-fecha").value;
 
@@ -635,7 +656,6 @@ const MostrarInfo = () => {
 //guardar calculo en storage
 const guardarCalculo = () => {
   try {
-    cargarParticipantesDesdeHTML();
     if (!participantesValidos())
       generarAlerta("No hay participantes cargados para guardar..");
 

@@ -59,7 +59,7 @@ const calcularTodo = () => {
   //Boton para abrir o cerrar detalle de la cuenta
   const button = document.createElement("button");
   button.classList.add("button");
-  button.classList.add("blue-2");
+  button.classList.add("blue");
   button.innerHTML = "Desplegar detalle <i class='fa-solid fa-list'></i>";
   button.addEventListener("click", () => mostrarDetalle());
 

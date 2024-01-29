@@ -96,7 +96,7 @@ const generarDetalle = (distribucion,participantes) => {
     let detalle = document.createElement("details");
     detalle.innerHTML =
       `
-    <summary>${result.customer} - ${(result.amount < 0 ? "Recibe " : "Paga ")} $${tot} <button class="button white">Editar</button></summary>
+    <summary>${result.customer} - ${(result.amount < 0 ? "Recibe " : "Paga ")} $${tot}</summary>
     <div class="details-wrapper">
       <div class="details-styling">        
         ${participante.gas.length > 0 ? participante.gas.map((gasto) => `<p> ${gasto.id} - $${gasto.precio}</p>`).join('') : "<p>Sin gastos.</p>"}

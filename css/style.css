@@ -934,7 +934,7 @@ abbr {
 
 [type=checkbox]+label {
   background: #efe7fd;
-  border-left: 4px solid #5b13ec;
+  border-left: 4px solid #7841e6;
   cursor: pointer;
   display: block;
   font-size: 1rem;
@@ -958,7 +958,7 @@ abbr {
 }
 
 [type=checkbox]:focus+label {
-  outline: 2px solid #5b13ec;
+  outline: 2px solid #7841e6;
 }
 
 [type=checkbox]:checked+label::before {
@@ -970,6 +970,45 @@ abbr {
   box-shadow: 0.2em 1em 2em -1em #d6d1e0;
   margin: 2em 0;
   max-width: 850px;
+}
+
+#container-participantes{
+  margin-top:20px;
+  width: 800px;
+  max-width: 90%;
+}
+
+#container-participantes p{
+  color:black;
+  padding:0.5rem;
+  padding-left:1rem;
+  font-weight: bolder;
+}
+
+.detalle-gasto div{
+  border-bottom: 1px dashed black;
+}
+
+.detalle-gasto div:last-of-type{
+  border-bottom: 0;
+}
+
+
+.desplega-detalle{
+  margin-bottom:30px;
+}
+
+.button-icono {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: white;
+  margin-left:1rem;
+}
+
+.button-icono:focus {
+  outline: none; /* Quita el contorno al hacer foco */
 }
 
 details {
@@ -998,7 +1037,7 @@ details:last-child {
 }
 
 summary {
-  background: #5b13ec;
+  background: #804ee4;
   color: white;
   display: block;
   transition: 0.2s;
@@ -1007,7 +1046,7 @@ summary {
 }
 
 summary:focus {
-  outline: 2px solid #5b13ec;
+  /*outline: 2px solid #5b13ec;*/
 }
 
 .collapse-init summary::after {
@@ -1024,7 +1063,7 @@ summary:focus {
 }
 
 [open] summary {
-  background: #5b13ec;
+  background: #7841e6;
   color: #f8f5fe;
 }
 
