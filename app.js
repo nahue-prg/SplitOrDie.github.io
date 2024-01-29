@@ -478,7 +478,9 @@ const generarHTMLdesdeArray = () => {
   }
 };
 
-const eliminarParticipanteCargado = (nombre) =>{
+const eliminarParticipanteCargado = (event, nombre) =>{
+  event.preventDefault(); 
+  event.stopPropagation();
   alertify.confirm(
     "Eliminar participante",
     `Presionar Ok para eliminar a ${nombre}`,
@@ -492,7 +494,9 @@ const eliminarParticipanteCargado = (nombre) =>{
   );
 }
 
-const editParticipante = (nombre) => {
+const editParticipante = (event, nombre) => {
+  event.preventDefault(); 
+  event.stopPropagation(); 
   alertaEst(
     "Ingresar participante",
     `<div class="template container-customer" style="margin:auto"> 

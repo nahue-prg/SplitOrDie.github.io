@@ -23,8 +23,8 @@ class Acordion {
             const titulo = document.createElement("summary");
             titulo.innerHTML = `
                 ${seccion.cabecera} 
-                <button class="button-icono" onclick="editParticipante('${seccion.cabecera.split(" - $")[0]}')"><i class="fa-regular fa-pen-to-square"></i></button>
-                <button class="button-icono" onclick="eliminarParticipanteCargado('${seccion.cabecera.split(" - $")[0]}')"><i class="fa-solid fa-trash"></i></button>
+                <button class="button-icono" onclick="editParticipante(event ,'${seccion.cabecera.split(" - $")[0]}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="button-icono" onclick="eliminarParticipanteCargado(event ,'${seccion.cabecera.split(" - $")[0]}')"><i class="fa-solid fa-trash"></i></button>
                 ` ;
             details.appendChild(titulo);
             const containerDetalle = document.createElement("div");

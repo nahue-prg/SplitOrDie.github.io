@@ -414,7 +414,7 @@ input {
 
 .info-cuenta {
   margin: auto;
-  margin-top: 270px;
+  margin-top: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -737,7 +737,7 @@ input {
   }
 
   .info-cuenta {
-    margin-top: 140px;
+    margin-top: 120px;
     padding:30px;
     /* margin: auto;
    
@@ -974,6 +974,7 @@ abbr {
 
 #container-participantes{
   margin-top:20px;
+  margin-bottom:50px;
   width: 800px;
   max-width: 90%;
 }
@@ -1043,6 +1044,8 @@ summary {
   transition: 0.2s;
   font-weight: 700;
   padding: 1em;
+  border-top-left-radius: 5px; /* Radio para la esquina superior izquierda */
+    border-top-right-radius: 5px; /* Radio para la esquina superior derecha */
 }
 
 summary:focus {
