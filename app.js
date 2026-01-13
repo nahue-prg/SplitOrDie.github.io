@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------------  VARIABLES GLOBALES
 */
-const URLBASE = "https://splitordie.ar/";
+const URLBASE = "https://nahue-prg.github.io/SplitOrDie.github.io/";
 
 //info de participantes cargados en la cuenta
 let participantesCargados = [];

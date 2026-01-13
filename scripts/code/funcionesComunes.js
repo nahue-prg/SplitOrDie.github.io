@@ -1,4 +1,4 @@
-const URLBASE__ = "https://splitordie.ar/";
+const URLBASE__ = "https://nahue-prg.github.io/SplitOrDie.github.io/";
 
 const codificarDatos = (participantes) => {
     // Convertir los datos a una cadena JSON

@@ -1,6 +1,6 @@
 const CUENTAS_NOMBRE = "Cuentas";
 const USUARIOS_NOMBRES = "Sugerencias";
-const URLBASE_ = "https://splitordie.ar/";
+const URLBASE_ = "https://nahue-prg.github.io/SplitOrDie.github.io/";
 
 const Storage_agregarElemento = (nuevoElemento) => {
     let array = Storage_obtenerItem(CUENTAS_NOMBRE);
